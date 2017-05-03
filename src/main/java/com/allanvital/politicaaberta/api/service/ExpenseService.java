@@ -5,7 +5,6 @@ import com.allanvital.politicaaberta.api.model.Expense;
 import com.allanvital.politicaaberta.api.repository.ExpenseRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 @Service
