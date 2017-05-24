@@ -6,7 +6,7 @@ services:
   - docker
 script:
 - sudo apt-get install -y sshpass
-- ./mvnw clean install 
+- ./mvnw clean install -Dmaven.test.skip=true
 - echo '
      TOKEN=$TOKEN
      DB_URL=$DB_URL
