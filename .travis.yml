@@ -20,5 +20,5 @@ script:
      sudo docker pull $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER;
      sudo docker stop $CONTAINER;
      sudo docker rm $CONTAINER;
-     sudo docker run --name $CONTAINER -d -p 8091:8085 $DOCKER_USERNAME/$POLITICAABERTAg:1.2.$TRAVIS_BUILD_NUMBER;
+     sudo docker run --name $CONTAINER -d -p 8091:8085 $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER;
      "
