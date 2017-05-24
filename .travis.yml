@@ -1,9 +1,10 @@
 sudo: required
+language: java
 services:
   - docker
 script:
 - sudo apt-get install -y sshpass
-- mvn clean install 
+- ./mvnw clean install 
 - echo '
      TOKEN=$TOKEN
      DB_URL=$DB_URL
