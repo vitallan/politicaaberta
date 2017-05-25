@@ -15,6 +15,6 @@ script:
      sudo docker stop $CONTAINER;
      sudo docker rm $CONTAINER;
      sudo docker run --name $CONTAINER -d -p 8091:8085 
-     --TOKEN="$TOKEN" --DB_URL="$DB_URL" --DB_USERNAME="$DB_USER" --DB_PASSWORD="$DB_PASS" 
+     -e TOKEN="$TOKEN" -e DB_URL="$DB_URL" -e DB_USERNAME="$DB_USER" -e DB_PASSWORD="$DB_PASS" 
      $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER;
      "
