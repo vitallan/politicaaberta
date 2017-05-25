@@ -8,10 +8,10 @@ script:
 - sudo apt-get install -y sshpass
 - ./mvnw clean install -Dmaven.test.skip=true
 - echo '
-     TOKEN=$TOKEN
-     DB_URL=$DB_URL
-     DB_USERNAME=$DB_USER
-     DB_PASSWORD=$DB_PASS' > envfile.env
+TOKEN=$TOKEN \n
+DB_URL=$DB_URL \n
+DB_USERNAME=$DB_USER \n
+DB_PASSWORD=$DB_PASS \n' > envfile.env
 - sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no envfile.env $USERNAME@$HOST:$ENVPATH
 - sudo docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - sudo docker build . -t $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER
