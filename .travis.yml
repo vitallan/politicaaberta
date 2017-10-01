@@ -1,0 +1,18 @@
+sudo: required
+language: java
+jdk:
+ - oraclejdk8
+services:
+  - docker
+script:
+- sudo apt-get install -y sshpass
+- ./mvnw clean install -Dmaven.test.skip=true
+- sudo docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- sudo docker build . -t $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER
+- sudo docker push $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER
+- sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "
+     sudo docker pull $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER;
+     sudo docker stop $CONTAINER;
+     sudo docker rm $CONTAINER;
+     sudo docker run --name $CONTAINER -d -p 8091:8085 --env-file=$ENVPATH $DOCKER_USERNAME/$POLITICAABERTA:1.2.$TRAVIS_BUILD_NUMBER;
+     "
