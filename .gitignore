@@ -28,5 +28,5 @@ node_modules/
 .node_modules/
 .build/
 node/
-
+dev.sqlite3
 src/main/resources/templates
