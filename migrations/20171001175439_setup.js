@@ -5,14 +5,14 @@ exports.up = function(knex, Promise) {
             table.string('name');
             table.string('uf');
             table.integer('site_id');
-            table.interger('secondarySiteId');
+            table.integer('secondarySiteId');
             table.timestamps();
         })
     ])
-};
+}
 
 exports.down = function(knex, Promise) {
     return Promise.all([
-        knex.schema.dropTable('users');
+        knex.schema.dropTable('deputy')
     ])
-};
+}

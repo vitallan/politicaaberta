@@ -3,9 +3,18 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
     connection: {
-      filename: './dev.sqlite3'
+      database: 'politicaaberta_node',
+      user:     'root',
+      password: ''
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
     }
   },
 
@@ -23,6 +32,6 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations'
     }
-  },
+  }
 
 };

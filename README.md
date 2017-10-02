@@ -5,6 +5,8 @@
 knex migrate:latest
 knex migrate:make step1  
 
+DEBUG=my-application ./bin/www
+
 
 https://alexzywiak.github.io/running-migrations-with-knex/
 http://www.dancorman.com/knex-your-sql-best-friend/
