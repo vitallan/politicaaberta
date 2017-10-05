@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodejs ./bin/www"
+    "start": "nodejs ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
@@ -17,5 +18,9 @@
     "morgan": "~1.0.0",
     "mysql": "^2.14.1",
     "static-favicon": "~1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.0",
+    "supertest": "^3.0.0"
   }
 }
