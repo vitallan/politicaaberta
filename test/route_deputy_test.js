@@ -1,4 +1,5 @@
 var request = require('supertest');
+var util    = require('util');
 
 describe('Testando endpoints de deputado', function () {
   var server;
@@ -16,7 +17,7 @@ describe('Testando endpoints de deputado', function () {
   });
 
   it('Responde o post de um deputado completo com sucesso ', function(done) {
-    var deputy = {name:"Meu Nome", uf:"SP", site_id:"1", secondarySiteId:"2"}
+    var deputy = {name:"Meu Nome", uf:"SP", site_id:"1", secondary_site_id:"2"}
     request(server)
       .post('/api/deputy')
       .send(deputy)

@@ -7,6 +7,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "is-my-json-valid": "^2.16.1",
     "body-parser": "~1.0.0",
     "chai": "^4.1.2",
     "cookie-parser": "~1.0.1",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "mocha": "^4.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "util": "^0.10.3"
   }
 }
