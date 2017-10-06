@@ -7,15 +7,13 @@
     "test": "mocha"
   },
   "dependencies": {
-    "is-my-json-valid": "^2.16.1",
     "body-parser": "~1.0.0",
-    "chai": "^4.1.2",
     "cookie-parser": "~1.0.1",
     "debug": "~0.7.4",
     "ejs": "~0.8.5",
     "express": "~4.0.0",
+    "is-my-json-valid": "^2.16.1",
     "knex": "^0.13.0",
-    "mocha": "^4.0.0",
     "morgan": "~1.0.0",
     "mysql": "^2.14.1",
     "static-favicon": "~1.0.0"
@@ -23,6 +21,7 @@
   "devDependencies": {
     "mocha": "^4.0.0",
     "supertest": "^3.0.0",
+    "chai": "^4.1.2",
     "util": "^0.10.3"
   }
 }
