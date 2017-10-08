@@ -20,9 +20,10 @@
     "static-favicon": "~1.0.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "leaked-handles": "^5.2.0",
     "mocha": "^4.0.0",
     "supertest": "^3.0.0",
-    "chai": "^4.1.2",
     "util": "^0.10.3"
   }
 }

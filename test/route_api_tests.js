@@ -1,21 +1,36 @@
-var request = require('supertest');
-//var knex = require('../server/db');
-
 process.env.NODE_ENV = 'test';
+
+var request = require('supertest');
+var knex = require('../server/db');
 
 describe('Testando endpoints de deputado', function () {
   var server;
 
   after(function(done){
-    process.exit(0);
+    knex.migrate.rollback().then(function() {
+      knex.destroy();
+      return done();
+    });
   });
 
-  beforeEach(function() {
-    server = require('../app').listen(3000);
+  before(function(done){
+    knex.migrate.rollback().then(function() {
+        knex.migrate.latest().then(function() {
+          return done();
+        });
+    });
   });
 
-  afterEach(function(done) {
-    server.close(done);
+  beforeEach(function(done) {
+    server = require('../app').listen(3000, function(){
+      return done();
+    });
+  });
+
+  afterEach(function(done){
+    server.close(function(){
+      return done();
+    });
   });
 
   it('Responde o post de um deputado completo com sucesso ', function(done) {
@@ -23,7 +38,9 @@ describe('Testando endpoints de deputado', function () {
     request(server)
       .post('/api/deputy')
       .send(deputy)
-      .expect(200, done);
+      .expect(200, {
+        site_id: 1
+      }, done);
   });
 
   it('Responde o post de um deputado com UF errado com bad request ', function(done) {
