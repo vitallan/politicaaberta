@@ -14,6 +14,7 @@ describe('Testando endpoints de deputado', function () {
   });
 
   before(function(done){
+    this.timeout(10000);
     knex.migrate.rollback().then(function() {
         knex.migrate.latest().then(function() {
           return done();
@@ -35,10 +36,27 @@ describe('Testando endpoints de deputado', function () {
 
   it('Responde o post de um deputado completo com sucesso ', function(done) {
     var deputy = {name:"Meu Nome", uf:"SP", site_id:1, secondary_site_id:2, party: "PT"};
+    var id;
     request(server)
       .post('/api/deputy')
       .send(deputy)
+      .expect(function(res){
+        if (res.body.id != undefined) {
+          res.body.id = 1; //if ID is setted, we're cool
+        }
+        if (res.body.party.id != undefined) {
+          res.body.party.id = 1; //if ID is setted, we're cool
+        }
+      })
       .expect(200, {
+        id: 1,
+        name: "Meu Nome",
+        uf: "SP",
+        secondary_site_id: 2,
+        party: {
+          id: 1,
+          name: "PT"
+        },
         site_id: 1
       }, done);
   });
