@@ -11,6 +11,9 @@
 hs_err_pid*
 /target
 
+test.sqlite3
+test.sqlite3-journal
+
 local.db
 .classpath
 .project
