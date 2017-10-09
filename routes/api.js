@@ -19,6 +19,7 @@ router.post('/deputy', function(req, res) {
       party_id: party.id,
       site_id: req.body.site_id
     }).then(function(response){
+      console.log(response[0] + "   ------------- " + party)
       req.body.id = response[0];
       req.body.party = party;
       res.send(req.body, 200)
