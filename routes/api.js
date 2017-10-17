@@ -10,20 +10,22 @@ router.post('/deputy', function(req, res) {
       return;
     }
 
-    var party = knex('party').where({name: req.body.party}).select('id', 'name');
+    knex('party').where({name: req.body.party}).select('id', 'name').then(function(party_id, party_name){
+      console.log(party_id + "----" + party_name)
+      knex('deputy').returning('id').insert({
+        name: req.body.name,
+        uf: req.body.uf,
+        secondary_site_id: req.body.secondary_site_id,
+        party_id: party_id,
+        site_id: req.body.site_id
+      }).then(function(response){
+        req.body.id = response[0];
+        req.body.party = {id: party_id, name: party_name};
+        res.send(req.body, 200);
+      });
 
-    knex('deputy').returning('id').insert({
-      name: req.body.name,
-      uf: req.body.uf,
-      secondary_site_id: req.body.secondary_site_id,
-      party_id: party.id,
-      site_id: req.body.site_id
-    }).then(function(response){
-      console.log(response[0] + "   ------------- " + party)
-      req.body.id = response[0];
-      req.body.party = party;
-      res.send(req.body, 200)
     });
+
   }
 );
 
