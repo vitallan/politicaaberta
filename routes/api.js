@@ -10,8 +10,34 @@ router.post('/deputy', function(req, res) {
       return;
     }
 
-    knex('party').where({name: req.body.party}).select('id', 'name').then(function(party_id, party_name){
-      console.log(party_id + "----" + party_name)
+    var party = req.body.party;
+
+    knex.transaction(trx => {
+      trx('party').where('name', party).then(query_result => {
+        if(query_result.length === 0) {
+          console.log("inserindo");
+          return trx('party').insert({name: party}).then(() => {
+            return trx('party').where('name', party);
+          });
+        } else {
+          console.log("ja ta la");
+          return query_result;
+        }
+      });
+    }).then(trx_result => {
+      console.log(trx_result);
+      console.log("PORRA");
+      console.log("Party is " + trx_result[0].id + "  -  " + trx_result[0].name);
+    });
+
+    res.send(null, 200);
+
+    /*knex('party').where({name: req.body.party}).select('id', 'name').then(function(party_id, party_name){
+
+      if(party_name == undefined) {
+        knex('party').returning('id')
+      }
+
       knex('deputy').returning('id').insert({
         name: req.body.name,
         uf: req.body.uf,
@@ -24,7 +50,7 @@ router.post('/deputy', function(req, res) {
         res.send(req.body, 200);
       });
 
-    });
+    });*/
 
   }
 );
