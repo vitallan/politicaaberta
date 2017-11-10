@@ -1,32 +1,30 @@
-*.class
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/target
-
-local.db
+### STS ###
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
+.settings
+.springBeans
 
-Vagrantfile
-.vagrant/
-
-*.log
-h2-1.mv.db
-.idea/
-nohup.out
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
-node_modules/
-.node_modules/
-.build/
-node/
+*.ipr
 
-src/main/resources/templates
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+out/
+file*.zip
+Ano-*.xml
+download.zip
