@@ -1,9 +1,20 @@
 package com.allanvital.politicaaberta.model;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.math.BigDecimal;
 
-public class XmlEntry {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public class DespesaXmlEntry {
+
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+    
     private String txNomeParlamentar;
 
     private int ideCadastro;

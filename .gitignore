@@ -28,3 +28,7 @@ out/
 file*.zip
 Ano-*.xml
 download.zip
+/bin/
+
+Deputados.xml
+deputies.zip

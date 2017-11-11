@@ -13,13 +13,22 @@ import java.nio.channels.ReadableByteChannel;
 @Component
 public class FileDownloader {
 
-    public File download(int year) {
+    public File downloadDeputies() {
+        return this.download("deputies.zip", "http://www.camara.leg.br/internet/deputado/DeputadosXML_52a55.zip");
+    }
+    
+    public File downloadExpenses(int year) {
+        return this.download("file" + year + ".zip", "http://www.camara.leg.br/cotas/Ano-" + year + ".xml.zip");
+    }
+    
+    private File download(String newFile, String uri) {
         try {
-            File file = new File("file" + year + ".zip");
-            URL url = new URL("http://www.camara.leg.br/cotas/Ano-" + year + ".xml.zip");
+            File file = new File(newFile);
+            URL url = new URL(uri);
             ReadableByteChannel rbc = Channels.newChannel(url.openStream());
             FileOutputStream fos = new FileOutputStream(file);
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            fos.close();
             return file;
         } catch (FileNotFoundException e) {
             e.printStackTrace();

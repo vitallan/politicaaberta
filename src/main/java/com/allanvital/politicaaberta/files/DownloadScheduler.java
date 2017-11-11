@@ -2,6 +2,9 @@ package com.allanvital.politicaaberta.files;
 
 import org.springframework.stereotype.Component;
 
+import com.allanvital.politicaaberta.model.DeputadoXmlEntry;
+import com.allanvital.politicaaberta.model.DespesaXmlEntry;
+
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
@@ -19,12 +22,12 @@ public class DownloadScheduler {
 
     public void downloadOlderFiles() {
         for(int year = 2009; year < this.currentYear(); year++) {
-            downloader.download(year);
+            downloader.downloadExpenses(year);
         }
     }
 
     public void downloadCurrentYearFile() {
-        downloader.download(this.currentYear());
+        downloader.downloadExpenses(this.currentYear());
     }
 
     private int currentYear() {
@@ -35,9 +38,14 @@ public class DownloadScheduler {
         FileDownloader downloader = new FileDownloader();
         FileUnzipper unzipper = new FileUnzipper();
         XmlProcessor processor = new XmlProcessor();
-        File downloaded = downloader.download(2017);
+        File downloaded = downloader.downloadExpenses(2017);
         File unzipedFile = unzipper.unzipFile(downloaded);
-        processor.readXml(unzipedFile);
+        
+        File downloadedDeputies = downloader.downloadDeputies();
+        File unzipedDeputies = unzipper.unzipFile(downloadedDeputies);
+        
+        //processor.readXml(unzipedFile, "DESPESA", DespesaXmlEntry.class);
+        processor.readXml(unzipedDeputies, "Deputado", DeputadoXmlEntry.class);
     }
 
 }
