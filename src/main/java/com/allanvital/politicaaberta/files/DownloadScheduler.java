@@ -1,9 +1,10 @@
 package com.allanvital.politicaaberta.files;
 
+import com.allanvital.politicaaberta.batch.reader.FileDownloadReader;
+import com.allanvital.politicaaberta.batch.writer.FileUnzipWriter;
 import org.springframework.stereotype.Component;
 
 import com.allanvital.politicaaberta.model.DeputadoXmlEntry;
-import com.allanvital.politicaaberta.model.DespesaXmlEntry;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -14,9 +15,9 @@ import java.util.Calendar;
 @Component
 public class DownloadScheduler {
 
-    private FileDownloader downloader;
+    /*private FileDownloadReader downloader;
 
-    public DownloadScheduler(FileDownloader downloader) {
+    public DownloadScheduler(FileDownloadReader downloader) {
         this.downloader = downloader;
     }
 
@@ -35,8 +36,8 @@ public class DownloadScheduler {
     }
 
     public static void main(String[] args) throws JAXBException, IOException, XMLStreamException {
-        FileDownloader downloader = new FileDownloader();
-        FileUnzipper unzipper = new FileUnzipper();
+        FileDownloadReader downloader = new FileDownloadReader();
+        FileUnzipWriter unzipper = new FileUnzipWriter();
         XmlProcessor processor = new XmlProcessor();
         File downloaded = downloader.downloadExpenses(2017);
         File unzipedFile = unzipper.unzipFile(downloaded);
@@ -46,6 +47,6 @@ public class DownloadScheduler {
         
         //processor.readXml(unzipedFile, "DESPESA", DespesaXmlEntry.class);
         processor.readXml(unzipedDeputies, "Deputado", DeputadoXmlEntry.class);
-    }
+    }*/
 
 }

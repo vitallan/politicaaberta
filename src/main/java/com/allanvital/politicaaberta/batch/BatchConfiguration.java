@@ -1,62 +1,100 @@
 package com.allanvital.politicaaberta.batch;
 
+import com.allanvital.politicaaberta.batch.reader.FileDownloadReader;
+import com.allanvital.politicaaberta.batch.writer.FileUnzipWriter;
+import com.allanvital.politicaaberta.model.DeputadoXmlEntry;
 import com.allanvital.politicaaberta.model.DespesaXmlEntry;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.xml.StaxEventItemReader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.oxm.Unmarshaller;
-import org.springframework.oxm.XmlMappingException;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.oxm.xmlbeans.XmlBeansMarshaller;
-import org.springframework.oxm.xstream.XStreamMarshaller;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
-import java.io.IOException;
-import java.util.HashMap;
+import java.io.File;
 import java.util.List;
-import java.util.Map;
-import javax.xml.transform.Source;
 
 @Configuration
 public class BatchConfiguration {
 
     @Bean
-    public Job reportJob(JobBuilderFactory jobBuilderFactory, Step step1) {
-        return jobBuilderFactory.get("ma-role").incrementer(new RunIdIncrementer()).flow(step1).end().build();
+    public Job expenseBatch(JobBuilderFactory jobBuilderFactory, Step downloadAndUnzipFile, Step openAndPersistExpense) {
+        return jobBuilderFactory.get("Download e processamento de despesas").incrementer(new RunIdIncrementer())
+                .flow(downloadAndUnzipFile)
+                .next(openAndPersistExpense)
+                .end().build();
     }
 
     @Bean
-    public Step step1(StepBuilderFactory stepBuilderFactory, StaxEventItemReader<DespesaXmlEntry> reader, ItemWriter<DespesaXmlEntry> writer ) {
-        return stepBuilderFactory.get("job1").<DespesaXmlEntry, DespesaXmlEntry>chunk(10)
-                .reader(reader).writer(writer).build();
+    public Job deputyBatch(JobBuilderFactory jobBuilderFactory, Step downloadAndUnzipFile, Step openAndPersistDeputy) {
+        return jobBuilderFactory.get("Download e processamento de deputados").incrementer(new RunIdIncrementer())
+                .flow(downloadAndUnzipFile)
+                .next(openAndPersistDeputy)
+                .end().build();
     }
 
     @Bean
-    public StaxEventItemReader<DespesaXmlEntry> reader() {
-        StaxEventItemReader<DespesaXmlEntry> reader = new StaxEventItemReader<>();
-        reader.setResource(new FileSystemResource("Ano-2017.xml"));
-        reader.setFragmentRootElementName("DESPESA");
+    public Step openAndPersistExpense(StepBuilderFactory stepBuilderFactory, StaxEventItemReader<DespesaXmlEntry> despesaReader, ItemWriter<DespesaXmlEntry> expenseWriter) {
+        return stepBuilderFactory.get("Abre e processa arquivo de Despesas").<DespesaXmlEntry, DespesaXmlEntry>chunk(1)
+                .reader(despesaReader).writer(expenseWriter).build();
+    }
+
+    @Bean
+    public Step openAndPersistDeputy(StepBuilderFactory stepBuilderFactory, StaxEventItemReader<DeputadoXmlEntry> deputadoReader, ItemWriter<DeputadoXmlEntry> deputyWriter) {
+        return stepBuilderFactory.get("Abre e processa arquivo de Despesas").<DeputadoXmlEntry, DeputadoXmlEntry>chunk(1)
+                .reader(deputadoReader).writer(deputyWriter).build();
+    }
+
+    @Bean
+    public Step downloadAndUnzipFile(StepBuilderFactory stepBuilderFactory, FileDownloadReader fileDownloadReader, FileUnzipWriter fileUnzipWriter) {
+        return stepBuilderFactory.get("Download e unzip de Arquivo").<File, File>chunk(1)
+                .reader(fileDownloadReader).writer(fileUnzipWriter).build();
+    }
+
+    @Bean
+    @JobScope
+    public StaxEventItemReader<DespesaXmlEntry> despesaReader(@Value("#{jobParameters['intermediaryXml']}") String fileName) {
+        return this.buildReader(DespesaXmlEntry.class, "DESPESA", fileName);
+    }
+
+    @Bean
+    @JobScope
+    public StaxEventItemReader<DeputadoXmlEntry> deputadoReader(@Value("#{jobParameters['intermediaryXml']}") String fileName) {
+        return this.buildReader(DeputadoXmlEntry.class, "Deputado", fileName);
+    }
+
+    private <T> StaxEventItemReader<T> buildReader(Class<T> clazz, String fragmentRootElement, String fileName) {
+        StaxEventItemReader<T> reader = new StaxEventItemReader<>();
+        reader.setFragmentRootElementName(fragmentRootElement);
         Jaxb2Marshaller unmarshaller = new Jaxb2Marshaller();
-        unmarshaller.setClassesToBeBound(DespesaXmlEntry.class);
+        unmarshaller.setClassesToBeBound(clazz);
+        reader.setResource(new FileSystemResource(fileName));
         reader.setUnmarshaller(unmarshaller);
         return reader;
     }
 
     @Bean
-    public ItemWriter<DespesaXmlEntry> writer() {
+    public ItemWriter<DespesaXmlEntry> expenseWriter() {
         return new ItemWriter<DespesaXmlEntry>() {
             @Override
             public void write(List<? extends DespesaXmlEntry> items) throws Exception {
+                items.forEach((i) -> System.out.println(i));
+            }
+        };
+    }
+
+    @Bean
+    public ItemWriter<DeputadoXmlEntry> deputyWriter() {
+        return new ItemWriter<DeputadoXmlEntry>() {
+            @Override
+            public void write(List<? extends DeputadoXmlEntry> items) throws Exception {
                 items.forEach((i) -> System.out.println(i));
             }
         };
