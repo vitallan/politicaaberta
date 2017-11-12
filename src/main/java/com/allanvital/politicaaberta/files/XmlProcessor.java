@@ -16,7 +16,7 @@ import java.io.InputStream;
 @Component
 public class XmlProcessor {
 
-    public void readXml(File file, String localName, Class<?> type) throws IOException, JAXBException, XMLStreamException, FactoryConfigurationError {
+    public <T> T readXml(File file, String localName, Class<T> type) throws IOException, JAXBException, XMLStreamException, FactoryConfigurationError {
         InputStream is = new FileInputStream(file);
         JAXBContext jaxbContext = JAXBContext.newInstance(type);
         XMLStreamReader xss = XMLInputFactory.newFactory().createXMLStreamReader(is);
@@ -28,6 +28,7 @@ public class XmlProcessor {
                 System.out.println(entry);
             }
         }
+        return null;
     }
 
 }

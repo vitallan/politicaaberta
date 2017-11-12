@@ -5,8 +5,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement(name="Deputado")
 public class DeputadoXmlEntry {
     
     @Id
@@ -118,3 +120,4 @@ public class DeputadoXmlEntry {
     }
     
 }
+
