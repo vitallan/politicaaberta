@@ -1,10 +1,14 @@
 package com.allanvital.politicaaberta.model;
 
+import org.springframework.util.StringUtils;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -19,14 +23,30 @@ public class DeputadoXmlEntry {
     private Integer numLegislatura;
     private String nomeParlamentar;
     private String SEXO;
+
+    @XmlElement(name="Profissao")
     private String Profissao;
+
+    @XmlElement(name="LegendaPartidoEleito")
     private String LegendaPartidoEleito;
     private String UFEleito;
+
+    @XmlElement(name="Condicao")
     private String Condicao;
+
+    @XmlElement(name="SiTuacaoMandato")
     private String SiTuacaoMandato;
+
+    @XmlElement(name="Matricula")
     private Integer Matricula;
+
+    @XmlElement(name="Gabinete")
     private Integer Gabinete;
+
+    @XmlElement(name="Anexo")
     private Integer Anexo;
+
+    @XmlElement(name="Fone")
     private String Fone;
     
     public Long getId() {
@@ -122,7 +142,7 @@ public class DeputadoXmlEntry {
     public Deputy buildDeputy() {
         Deputy deputy = new Deputy();
         deputy.setDeputyXmlEntryId(this.id);
-        deputy.setName(this.getNomeParlamentar());
+        deputy.setName(StringUtils.capitalize(StringUtils(this.getNomeParlamentar())));
         deputy.setUf(this.getUFEleito());
         return deputy;
     }

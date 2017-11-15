@@ -1,13 +1,13 @@
 package com.allanvital.politicaaberta.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.math.BigDecimal;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @XmlRootElement(name="DESPESA")
@@ -69,12 +69,50 @@ public class DespesaXmlEntry {
 
     private int numRessarcimento;
 
+    private BigDecimal vlrRestituicao;
+    private int nuDeputadoId;
+    private int ideDocumento;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getVlrRestituicao() {
+        return vlrRestituicao;
+    }
+
+    public void setVlrRestituicao(BigDecimal vlrRestituicao) {
+        this.vlrRestituicao = vlrRestituicao;
+    }
+
+    public int getNuDeputadoId() {
+        return nuDeputadoId;
+    }
+
+    public void setNuDeputadoId(int nuDeputadoId) {
+        this.nuDeputadoId = nuDeputadoId;
+    }
+
+    public int getIdeDocumento() {
+        return ideDocumento;
+    }
+
+    public void setIdeDocumento(int ideDocumento) {
+        this.ideDocumento = ideDocumento;
+    }
+
     public String getTxNomeParlamentar() {
         return txNomeParlamentar;
     }
     public void setTxNomeParlamentar(String txNomeParlamentar) {
         this.txNomeParlamentar = txNomeParlamentar;
     }
+
+    @XmlElement(name="idecadastro")
     public int getIdeCadastro() {
         return ideCadastro;
     }

@@ -21,8 +21,8 @@ import java.util.Map;
 @SpringBootApplication
 public class PoliticaabertaApplication implements CommandLineRunner{
 
-    @Autowired
-    private Job expenseBatch;
+    //@Autowired
+    //private Job expenseBatch;
 
     @Autowired
     private Job deputyBatch;
