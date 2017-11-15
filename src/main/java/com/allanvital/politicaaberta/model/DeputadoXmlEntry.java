@@ -118,6 +118,13 @@ public class DeputadoXmlEntry {
         return "DeputadoXmlEntry [id=" + id + ", ideCadastro=" + ideCadastro + ", numLegislatura=" + numLegislatura + ", nomeParlamentar=" + nomeParlamentar + ", SEXO=" + SEXO + ", Profissao=" + Profissao + ", LegendaPartidoEleito=" + LegendaPartidoEleito
             + ", UFEleito=" + UFEleito + ", Condicao=" + Condicao + ", SiTuacaoMandato=" + SiTuacaoMandato + ", Matricula=" + Matricula + ", Gabinete=" + Gabinete + ", Anexo=" + Anexo + ", Fone=" + Fone + "]";
     }
-    
+
+    public Deputy buildDeputy() {
+        Deputy deputy = new Deputy();
+        deputy.setDeputyXmlEntryId(this.id);
+        deputy.setName(this.getNomeParlamentar());
+        deputy.setUf(this.getUFEleito());
+        return deputy;
+    }
 }
 

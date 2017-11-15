@@ -2,9 +2,9 @@ package com.allanvital.politicaaberta;
 
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.scope.StepScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -13,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,9 @@ public class PoliticaabertaApplication implements CommandLineRunner{
     private Job expenseBatch;
 
     @Autowired
+    private Job deputyBatch;
+
+    @Autowired
     private JobLauncher launcher;
 
 	public static void main(String[] args) {
@@ -33,12 +37,13 @@ public class PoliticaabertaApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
         Map<String, JobParameter> parameterMap = new HashMap<>();
-        parameterMap.put("outputZippedFilename", new JobParameter("file2015.zip"));
-        parameterMap.put("downloadUrl", new JobParameter("http://www.camara.leg.br/cotas/Ano-2015.xml.zip"));
+        parameterMap.put("outputZippedFilename", new JobParameter("deputies.zip"));
+        parameterMap.put("downloadUrl", new JobParameter("http://www.camara.leg.br/internet/deputado/DeputadosXML_52a55.zip"));
         parameterMap.put("intermediaryXml", new JobParameter("raw.xml"));
+        parameterMap.put("startingAt", new JobParameter(new Date()));
 		JobParameters parameters = new JobParameters(parameterMap);
 
-        launcher.run(expenseBatch, parameters);
+        launcher.run(deputyBatch, parameters);
 	}
 
 }

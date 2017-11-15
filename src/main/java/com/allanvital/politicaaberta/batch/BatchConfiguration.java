@@ -7,8 +7,8 @@ import com.allanvital.politicaaberta.model.DespesaXmlEntry;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.xml.StaxEventItemReader;
@@ -59,18 +59,18 @@ public class BatchConfiguration {
     }
 
     @Bean
-    @JobScope
+    @StepScope
     public StaxEventItemReader<DespesaXmlEntry> despesaReader(@Value("#{jobParameters['intermediaryXml']}") String fileName) {
         return this.buildReader(DespesaXmlEntry.class, "DESPESA", fileName);
     }
 
     @Bean
-    @JobScope
+    @StepScope
     public StaxEventItemReader<DeputadoXmlEntry> deputadoReader(@Value("#{jobParameters['intermediaryXml']}") String fileName) {
         return this.buildReader(DeputadoXmlEntry.class, "Deputado", fileName);
     }
 
-    private <T> StaxEventItemReader<T> buildReader(Class<T> clazz, String fragmentRootElement, String fileName) {
+    public <T> StaxEventItemReader<T> buildReader(Class<T> clazz, String fragmentRootElement, String fileName) {
         StaxEventItemReader<T> reader = new StaxEventItemReader<>();
         reader.setFragmentRootElementName(fragmentRootElement);
         Jaxb2Marshaller unmarshaller = new Jaxb2Marshaller();

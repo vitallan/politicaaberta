@@ -15,7 +15,7 @@ public class Deputy {
     private String name;
 
     @Column(nullable = false, unique = true)
-    private Long xmlId;
+    private Long deputyXmlEntryId;
 
     @Column(nullable = false)
     private String uf;
@@ -23,6 +23,14 @@ public class Deputy {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id", nullable = false)
     private Party party;
+
+    public Long getDeputyXmlEntryId() {
+        return deputyXmlEntryId;
+    }
+
+    public void setDeputyXmlEntryId(Long deputyXmlEntryId) {
+        this.deputyXmlEntryId = deputyXmlEntryId;
+    }
 
     public Long getId() {
         return id;
@@ -38,14 +46,6 @@ public class Deputy {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getXmlId() {
-        return xmlId;
-    }
-
-    public void setXmlId(Long xmlId) {
-        this.xmlId = xmlId;
     }
 
     public String getUf() {
@@ -73,7 +73,7 @@ public class Deputy {
 
         if (id != null ? !id.equals(deputy.id) : deputy.id != null) return false;
         if (name != null ? !name.equals(deputy.name) : deputy.name != null) return false;
-        if (xmlId != null ? !xmlId.equals(deputy.xmlId) : deputy.xmlId != null) return false;
+        if (deputyXmlEntryId != null ? !deputyXmlEntryId.equals(deputy.deputyXmlEntryId) : deputy.deputyXmlEntryId != null) return false;
         if (uf != null ? !uf.equals(deputy.uf) : deputy.uf != null) return false;
         return party != null ? party.equals(deputy.party) : deputy.party == null;
     }
@@ -82,7 +82,7 @@ public class Deputy {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (xmlId != null ? xmlId.hashCode() : 0);
+        result = 31 * result + (deputyXmlEntryId != null ? deputyXmlEntryId.hashCode() : 0);
         result = 31 * result + (uf != null ? uf.hashCode() : 0);
         result = 31 * result + (party != null ? party.hashCode() : 0);
         return result;
@@ -93,7 +93,7 @@ public class Deputy {
         return "Deputy{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", xmlId=" + xmlId +
+                ", xmlId=" + deputyXmlEntryId +
                 ", uf='" + uf + '\'' +
                 ", party=" + party +
                 '}';
