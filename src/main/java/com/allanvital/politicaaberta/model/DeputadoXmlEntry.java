@@ -1,15 +1,14 @@
 package com.allanvital.politicaaberta.model;
 
-import org.springframework.util.StringUtils;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import org.apache.commons.lang3.text.WordUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @XmlRootElement(name="Deputado")
@@ -142,7 +141,7 @@ public class DeputadoXmlEntry {
     public Deputy buildDeputy() {
         Deputy deputy = new Deputy();
         deputy.setDeputyXmlEntryId(this.id);
-        deputy.setName(StringUtils.capitalize(this.getNomeParlamentar()));
+        deputy.setName(WordUtils.capitalize(this.getNomeParlamentar().toLowerCase()));
         deputy.setUf(this.getUFEleito());
         return deputy;
     }

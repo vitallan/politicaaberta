@@ -4,6 +4,7 @@ import com.allanvital.politicaaberta.batch.reader.DeputadoXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.DespesaXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.FileDownloadReader;
 import com.allanvital.politicaaberta.batch.writer.FileUnzipWriter;
+import com.allanvital.politicaaberta.batch.writer.PartyWriter;
 import com.allanvital.politicaaberta.model.DeputadoXmlEntry;
 import com.allanvital.politicaaberta.model.DespesaXmlEntry;
 import org.springframework.batch.core.Job;
@@ -12,10 +13,13 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @Configuration
@@ -44,9 +48,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step openAndPersistDeputy(StepBuilderFactory stepBuilderFactory, DeputadoXmlEntryReader deputadoReader, ItemWriter<DeputadoXmlEntry> deputyWriter) {
+    public Step openAndPersistDeputy(StepBuilderFactory stepBuilderFactory, DeputadoXmlEntryReader deputadoReader, CompositeItemWriter<DeputadoXmlEntry> compositeDeputadoWriter) {
         return stepBuilderFactory.get("Abre e processa arquivo de Despesas").<DeputadoXmlEntry, DeputadoXmlEntry>chunk(1)
-                .reader(deputadoReader).writer(deputyWriter).build();
+                .reader(deputadoReader).writer(compositeDeputadoWriter).build();
     }
 
     @Bean
@@ -63,6 +67,13 @@ public class BatchConfiguration {
     @Bean
     public ItemWriter<DeputadoXmlEntry> deputyWriter() {
         return items -> items.forEach((i) -> System.out.println(i));
+    }
+
+    @Bean
+    public CompositeItemWriter<DeputadoXmlEntry> compositeDeputadoWriter(ItemWriter<DeputadoXmlEntry> deputyWriter, PartyWriter partyWriter) {
+        CompositeItemWriter<DeputadoXmlEntry> compositeItemWriter = new CompositeItemWriter<DeputadoXmlEntry>();
+        compositeItemWriter.setDelegates(Arrays.asList(partyWriter, deputyWriter));
+        return compositeItemWriter;
     }
 
 }
