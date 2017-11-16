@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface DeputyRepository extends CrudRepository<Deputy, Long> {
 
-    Deputy findByDeputyXmlEntryId(Long officialId);
+    Deputy findByDeputyXmlEntryId(Long xmlEntryId);
 
 }

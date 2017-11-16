@@ -37,12 +37,10 @@ public class DeputyProcessor implements ItemProcessor<DeputadoXmlEntry, Deputy> 
         }
         Deputy deputy = deputyRepository.findByDeputyXmlEntryId(persistedXmlEntry.getId());
         if (deputy == null) {
-            Party party = partyRepository.findByName(persistedXmlEntry.getLegendaPartidoEleito());
-            if (party == null) {
-                party = partyRepository.save(party);
-            }
+            Party party = partyRepository.findOrCreate(persistedXmlEntry.getLegendaPartidoEleito());
+            deputy = persistedXmlEntry.buildDeputy();
             deputy.setParty(party);
-            deputy = deputyRepository.save(persistedXmlEntry.buildDeputy());
+            deputy = deputyRepository.save(deputy);
         }
         return deputy;
     }

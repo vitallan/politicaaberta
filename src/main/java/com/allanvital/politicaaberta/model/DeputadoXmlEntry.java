@@ -142,7 +142,7 @@ public class DeputadoXmlEntry {
     public Deputy buildDeputy() {
         Deputy deputy = new Deputy();
         deputy.setDeputyXmlEntryId(this.id);
-        deputy.setName(StringUtils.capitalize(StringUtils(this.getNomeParlamentar())));
+        deputy.setName(StringUtils.capitalize(this.getNomeParlamentar()));
         deputy.setUf(this.getUFEleito());
         return deputy;
     }
