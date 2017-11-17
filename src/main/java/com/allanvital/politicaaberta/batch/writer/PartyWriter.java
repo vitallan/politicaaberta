@@ -25,7 +25,7 @@ public class PartyWriter implements ItemWriter<DeputadoXmlEntry>{
     public void write(List<? extends DeputadoXmlEntry> items) throws Exception {
         items.forEach((item) -> {
             String partyName = item.getLegendaPartidoEleito();
-            log.info("Processando partido " + partyName);
+            log.info("Checando existencia do partido " + partyName);
             repository.findOrCreate(partyName);
         });
     }

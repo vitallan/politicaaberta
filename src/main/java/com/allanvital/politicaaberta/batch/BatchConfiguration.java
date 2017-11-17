@@ -1,5 +1,6 @@
 package com.allanvital.politicaaberta.batch;
 
+import com.allanvital.politicaaberta.batch.processor.DeputadoXmlEntryProcessor;
 import com.allanvital.politicaaberta.batch.reader.DeputadoXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.DespesaXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.FileDownloadReader;
@@ -35,7 +36,8 @@ public class BatchConfiguration {
 
     @Bean
     public Job deputyBatch(JobBuilderFactory jobBuilderFactory, Step downloadAndUnzipFile, Step openAndPersistDeputy) {
-        return jobBuilderFactory.get("Download e processamento de deputados").incrementer(new RunIdIncrementer())
+        return jobBuilderFactory.get("Download e processamento de deputados")
+                .incrementer(new RunIdIncrementer())
                 .flow(downloadAndUnzipFile)
                 .next(openAndPersistDeputy)
                 .end().build();
@@ -43,14 +45,21 @@ public class BatchConfiguration {
 
     @Bean
     public Step openAndPersistExpense(StepBuilderFactory stepBuilderFactory, DespesaXmlEntryReader despesaReader, ItemWriter<DespesaXmlEntry> expenseWriter) {
-        return stepBuilderFactory.get("Abre e processa arquivo de Despesas").<DespesaXmlEntry, DespesaXmlEntry>chunk(1)
-                .reader(despesaReader).writer(expenseWriter).build();
+        return stepBuilderFactory.get("Abre e processa arquivo de Despesas")
+                .<DespesaXmlEntry, DespesaXmlEntry>chunk(1)
+                .reader(despesaReader)
+                .writer(expenseWriter)
+                .build();
     }
 
     @Bean
-    public Step openAndPersistDeputy(StepBuilderFactory stepBuilderFactory, DeputadoXmlEntryReader deputadoReader, CompositeItemWriter<DeputadoXmlEntry> compositeDeputadoWriter) {
-        return stepBuilderFactory.get("Abre e processa arquivo de Despesas").<DeputadoXmlEntry, DeputadoXmlEntry>chunk(1)
-                .reader(deputadoReader).writer(compositeDeputadoWriter).build();
+    public Step openAndPersistDeputy(DeputadoXmlEntryProcessor deputadoProcessor, StepBuilderFactory stepBuilderFactory, DeputadoXmlEntryReader deputadoReader, CompositeItemWriter<DeputadoXmlEntry> compositeDeputadoWriter) {
+        return stepBuilderFactory.get("Abre e processa arquivo de Despesas")
+                .<DeputadoXmlEntry, DeputadoXmlEntry>chunk(1)
+                .reader(deputadoReader)
+                .processor(deputadoProcessor)
+                .writer(compositeDeputadoWriter)
+                .build();
     }
 
     @Bean

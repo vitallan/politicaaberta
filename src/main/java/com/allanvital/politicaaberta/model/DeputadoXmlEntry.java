@@ -145,5 +145,52 @@ public class DeputadoXmlEntry {
         deputy.setUf(this.getUFEleito());
         return deputy;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeputadoXmlEntry xmlEntry = (DeputadoXmlEntry) o;
+
+        if (id != null ? !id.equals(xmlEntry.id) : xmlEntry.id != null) return false;
+        if (ideCadastro != null ? !ideCadastro.equals(xmlEntry.ideCadastro) : xmlEntry.ideCadastro != null)
+            return false;
+        if (numLegislatura != null ? !numLegislatura.equals(xmlEntry.numLegislatura) : xmlEntry.numLegislatura != null)
+            return false;
+        if (nomeParlamentar != null ? !nomeParlamentar.equals(xmlEntry.nomeParlamentar) : xmlEntry.nomeParlamentar != null)
+            return false;
+        if (SEXO != null ? !SEXO.equals(xmlEntry.SEXO) : xmlEntry.SEXO != null) return false;
+        if (Profissao != null ? !Profissao.equals(xmlEntry.Profissao) : xmlEntry.Profissao != null) return false;
+        if (LegendaPartidoEleito != null ? !LegendaPartidoEleito.equals(xmlEntry.LegendaPartidoEleito) : xmlEntry.LegendaPartidoEleito != null)
+            return false;
+        if (UFEleito != null ? !UFEleito.equals(xmlEntry.UFEleito) : xmlEntry.UFEleito != null) return false;
+        if (Condicao != null ? !Condicao.equals(xmlEntry.Condicao) : xmlEntry.Condicao != null) return false;
+        if (SiTuacaoMandato != null ? !SiTuacaoMandato.equals(xmlEntry.SiTuacaoMandato) : xmlEntry.SiTuacaoMandato != null)
+            return false;
+        if (Matricula != null ? !Matricula.equals(xmlEntry.Matricula) : xmlEntry.Matricula != null) return false;
+        if (Gabinete != null ? !Gabinete.equals(xmlEntry.Gabinete) : xmlEntry.Gabinete != null) return false;
+        if (Anexo != null ? !Anexo.equals(xmlEntry.Anexo) : xmlEntry.Anexo != null) return false;
+        return Fone != null ? Fone.equals(xmlEntry.Fone) : xmlEntry.Fone == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (ideCadastro != null ? ideCadastro.hashCode() : 0);
+        result = 31 * result + (numLegislatura != null ? numLegislatura.hashCode() : 0);
+        result = 31 * result + (nomeParlamentar != null ? nomeParlamentar.hashCode() : 0);
+        result = 31 * result + (SEXO != null ? SEXO.hashCode() : 0);
+        result = 31 * result + (Profissao != null ? Profissao.hashCode() : 0);
+        result = 31 * result + (LegendaPartidoEleito != null ? LegendaPartidoEleito.hashCode() : 0);
+        result = 31 * result + (UFEleito != null ? UFEleito.hashCode() : 0);
+        result = 31 * result + (Condicao != null ? Condicao.hashCode() : 0);
+        result = 31 * result + (SiTuacaoMandato != null ? SiTuacaoMandato.hashCode() : 0);
+        result = 31 * result + (Matricula != null ? Matricula.hashCode() : 0);
+        result = 31 * result + (Gabinete != null ? Gabinete.hashCode() : 0);
+        result = 31 * result + (Anexo != null ? Anexo.hashCode() : 0);
+        result = 31 * result + (Fone != null ? Fone.hashCode() : 0);
+        return result;
+    }
 }
 

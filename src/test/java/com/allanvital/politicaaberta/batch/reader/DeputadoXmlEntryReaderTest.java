@@ -4,7 +4,6 @@ import com.allanvital.politicaaberta.model.DeputadoXmlEntry;
 import com.allanvital.politicaaberta.model.Deputy;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.util.StringUtils;
 
 import javax.xml.bind.JAXBException;
 
