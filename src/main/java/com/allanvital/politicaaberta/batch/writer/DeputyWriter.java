@@ -33,6 +33,7 @@ public class DeputyWriter implements ItemWriter<DeputadoXmlEntry> {
             Party party = partyRepository.findByName(item.getLegendaPartidoEleito());
             Deputy deputy = repository.findByDeputyXmlEntryId(item.getId());
             if (deputy == null) {
+                log.info("Persistindo Deputy referente ao DeputadoXmlEntry id=" + item.getIdeCadastro());
                 deputy = item.buildDeputy();
                 deputy.setParty(party);
                 repository.save(deputy);

@@ -24,6 +24,7 @@ public class DeputadoXmlEntryProcessor implements ItemProcessor<DeputadoXmlEntry
         log.info("Checando a existencia do deputadoXmlEntry ideCadastro=" + item.getIdeCadastro());
         DeputadoXmlEntry persisted = repository.findByIdeCadastro(item.getIdeCadastro());
         if (persisted == null) {
+            log.info("Persistindo deputadoXmlEntry ideCadastro=" + item.getIdeCadastro());
             persisted = repository.save(item);
         }
         return persisted;
