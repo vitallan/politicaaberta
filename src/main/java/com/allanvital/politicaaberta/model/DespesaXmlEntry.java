@@ -295,4 +295,11 @@ public class DespesaXmlEntry {
                 ", numRessarcimento=" + numRessarcimento +
                 '}';
     }
+
+    public Expense buildExpense() {
+        Expense expense = new Expense();
+        expense.setDespesaXmlEntryId(this.getId());
+        return expense;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.allanvital.politicaaberta.batch;
 
 import com.allanvital.politicaaberta.batch.processor.DeputadoXmlEntryProcessor;
+import com.allanvital.politicaaberta.batch.processor.DespesaXmlEntryProcessor;
 import com.allanvital.politicaaberta.batch.reader.DeputadoXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.DespesaXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.FileDownloadReader;
@@ -44,11 +45,12 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step openAndPersistExpense(StepBuilderFactory stepBuilderFactory, DespesaXmlEntryReader despesaReader, ItemWriter<DespesaXmlEntry> expenseWriter) {
+    public Step openAndPersistExpense(DespesaXmlEntryProcessor processor, StepBuilderFactory stepBuilderFactory, DespesaXmlEntryReader despesaReader, CompositeItemWriter<DespesaXmlEntry> compositeDespesaWriter) {
         return stepBuilderFactory.get("Abre e processa arquivo de Despesas")
                 .<DespesaXmlEntry, DespesaXmlEntry>chunk(1)
                 .reader(despesaReader)
-                .writer(expenseWriter)
+                .processor(processor)
+                .writer(compositeDespesaWriter)
                 .build();
     }
 
@@ -80,8 +82,15 @@ public class BatchConfiguration {
 
     @Bean
     public CompositeItemWriter<DeputadoXmlEntry> compositeDeputadoWriter(ItemWriter<DeputadoXmlEntry> deputyWriter, PartyWriter partyWriter) {
-        CompositeItemWriter<DeputadoXmlEntry> compositeItemWriter = new CompositeItemWriter<DeputadoXmlEntry>();
+        CompositeItemWriter<DeputadoXmlEntry> compositeItemWriter = new CompositeItemWriter<>();
         compositeItemWriter.setDelegates(Arrays.asList(partyWriter, deputyWriter));
+        return compositeItemWriter;
+    }
+
+    @Bean
+    public CompositeItemWriter<DespesaXmlEntry> compositeDespesaWriter(ItemWriter<DespesaXmlEntry> despesaWriter) {
+        CompositeItemWriter<DespesaXmlEntry> compositeItemWriter = new CompositeItemWriter<>();
+        compositeItemWriter.setDelegates(Arrays.asList(despesaWriter));
         return compositeItemWriter;
     }
 
