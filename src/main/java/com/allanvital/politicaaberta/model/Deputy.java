@@ -2,6 +2,8 @@ package com.allanvital.politicaaberta.model;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -23,6 +25,9 @@ public class Deputy {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id", nullable = false)
     private Party party;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deputy")
+    private List<Expense> expenses;
 
     public Long getDeputyXmlEntryId() {
         return deputyXmlEntryId;
@@ -97,5 +102,13 @@ public class Deputy {
                 ", uf='" + uf + '\'' +
                 ", party=" + party +
                 '}';
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
     }
 }

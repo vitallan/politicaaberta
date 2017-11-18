@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -299,7 +301,20 @@ public class DespesaXmlEntry {
     public Expense buildExpense() {
         Expense expense = new Expense();
         expense.setDespesaXmlEntryId(this.getId());
+        expense.setCpfCpnj(this.getTxtCNPJCPF());
+        expense.setReceiver(this.getTxtFornecedor());
+        expense.setValue(this.getVlrDocumento());
+        expense.setDescription(this.getTxtDescricao());
+        expense.setWhen(this.getMonthAndYear());
         return expense;
+    }
+
+    private Date getMonthAndYear() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.MONTH, this.getNumMes());
+        calendar.set(Calendar.YEAR, this.getNumAno());
+        return calendar.getTime();
     }
 
 }
