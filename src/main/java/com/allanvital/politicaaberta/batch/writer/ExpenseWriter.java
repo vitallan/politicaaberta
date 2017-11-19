@@ -1,11 +1,13 @@
 package com.allanvital.politicaaberta.batch.writer;
 
 import com.allanvital.politicaaberta.model.DeputadoXmlEntry;
+import com.allanvital.politicaaberta.model.Deputy;
 import com.allanvital.politicaaberta.model.DespesaXmlEntry;
 import com.allanvital.politicaaberta.model.Expense;
 import com.allanvital.politicaaberta.repository.DeputadoXmlEntryRepository;
 import com.allanvital.politicaaberta.repository.DeputyRepository;
 import com.allanvital.politicaaberta.repository.ExpenseRepository;
+import com.allanvital.politicaaberta.service.DeputyService;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
@@ -17,23 +19,20 @@ import java.util.List;
 public class ExpenseWriter implements ItemWriter<DespesaXmlEntry> {
 
     private ExpenseRepository repository;
-    private DeputyRepository deputyRepository;
-    private DeputadoXmlEntryRepository deputadoXmlEntryRepository;
+    private DeputyService deputyService;
 
-    public ExpenseWriter(ExpenseRepository repository, DeputyRepository deputyRepository, DeputadoXmlEntryRepository deputadoXmlEntryRepository) {
+    public ExpenseWriter(ExpenseRepository repository, DeputyService deputyService) {
         this.repository = repository;
-        this.deputyRepository = deputyRepository;
-        this.deputadoXmlEntryRepository = deputadoXmlEntryRepository;
+        this.deputyService = deputyService;
     }
 
     @Override
     public void write(List<? extends DespesaXmlEntry> items) throws Exception {
         items.forEach(item -> {
-            Expense persistedExpense = repository.findByDespesaXmlEntryId(item.getId());
+            Expense persistedExpense = repository.findByExpenseXmlEntryId(item.getId());
             if (persistedExpense == null) {
                 Expense expense = item.buildExpense();
-                DeputadoXmlEntry deputadoXmlEntry = deputadoXmlEntryRepository.findByIdeCadastro(item.getIdeCadastro());
-                expense.setDeputy(deputyRepository.findByDeputyXmlEntryId(deputadoXmlEntry.getId()));
+                expense.setDeputy(deputyService.getDeputyByXmlEntryIdeCadastro(item.getIdeCadastro()));
                 repository.save(expense);
             }
         });

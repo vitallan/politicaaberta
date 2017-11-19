@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ExpenseRepository extends CrudRepository<Expense, Long> {
 
-    Expense findByDespesaXmlEntryId(Long despesaXmlEntryId);
+    Expense findByExpenseXmlEntryId(Long expenseXmlEntryId);
 
 }

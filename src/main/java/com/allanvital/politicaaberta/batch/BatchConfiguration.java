@@ -5,6 +5,7 @@ import com.allanvital.politicaaberta.batch.processor.DespesaXmlEntryProcessor;
 import com.allanvital.politicaaberta.batch.reader.DeputadoXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.DespesaXmlEntryReader;
 import com.allanvital.politicaaberta.batch.reader.FileDownloadReader;
+import com.allanvital.politicaaberta.batch.writer.ExpenseByMonthWriter;
 import com.allanvital.politicaaberta.batch.writer.ExpenseWriter;
 import com.allanvital.politicaaberta.batch.writer.FileUnzipWriter;
 import com.allanvital.politicaaberta.batch.writer.PartyWriter;
@@ -89,9 +90,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public CompositeItemWriter<DespesaXmlEntry> compositeDespesaWriter(ItemWriter<DespesaXmlEntry> despesaWriter, ExpenseWriter expenseWriter) {
+    public CompositeItemWriter<DespesaXmlEntry> compositeDespesaWriter(ItemWriter<DespesaXmlEntry> despesaWriter, ExpenseWriter expenseWriter, ExpenseByMonthWriter expenseByMonthWriter) {
         CompositeItemWriter<DespesaXmlEntry> compositeItemWriter = new CompositeItemWriter<>();
-        compositeItemWriter.setDelegates(Arrays.asList(despesaWriter, expenseWriter));
+        compositeItemWriter.setDelegates(Arrays.asList(despesaWriter, expenseWriter, expenseByMonthWriter));
         return compositeItemWriter;
     }
 

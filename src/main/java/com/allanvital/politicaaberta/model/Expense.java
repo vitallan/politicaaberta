@@ -15,8 +15,7 @@ public class Expense {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private Long despesaXmlEntryId;
-//TODO: add other fields
+    private Long expenseXmlEntryId;
 
     private String cpfCpnj;
 
@@ -80,12 +79,12 @@ public class Expense {
         this.id = id;
     }
 
-    public Long getDespesaXmlEntryId() {
-        return despesaXmlEntryId;
+    public Long getExpenseXmlEntryId() {
+        return expenseXmlEntryId;
     }
 
-    public void setDespesaXmlEntryId(Long despesaXmlEntryId) {
-        this.despesaXmlEntryId = despesaXmlEntryId;
+    public void setExpenseXmlEntryId(Long expenseXmlEntryId) {
+        this.expenseXmlEntryId = expenseXmlEntryId;
     }
 
     public String getDescription() {

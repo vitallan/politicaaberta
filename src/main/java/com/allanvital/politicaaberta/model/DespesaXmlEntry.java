@@ -300,7 +300,7 @@ public class DespesaXmlEntry {
 
     public Expense buildExpense() {
         Expense expense = new Expense();
-        expense.setDespesaXmlEntryId(this.getId());
+        expense.setExpenseXmlEntryId(this.getId());
         expense.setCpfCpnj(this.getTxtCNPJCPF());
         expense.setReceiver(this.getTxtFornecedor());
         expense.setValue(this.getVlrDocumento());
