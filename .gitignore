@@ -27,6 +27,7 @@ nbdist/
 out/
 file*.zip
 Ano-*.xml
+expense-*.xml
 download.zip
 /bin/
 

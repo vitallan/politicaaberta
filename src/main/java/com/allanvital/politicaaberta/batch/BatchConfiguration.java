@@ -78,11 +78,6 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemWriter<DeputadoXmlEntry> deputyWriter() {
-        return items -> items.forEach((i) -> System.out.println(i));
-    }
-
-    @Bean
     public CompositeItemWriter<DeputadoXmlEntry> compositeDeputadoWriter(ItemWriter<DeputadoXmlEntry> deputyWriter, PartyWriter partyWriter) {
         CompositeItemWriter<DeputadoXmlEntry> compositeItemWriter = new CompositeItemWriter<>();
         compositeItemWriter.setDelegates(Arrays.asList(partyWriter, deputyWriter));
@@ -90,9 +85,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public CompositeItemWriter<DespesaXmlEntry> compositeDespesaWriter(ItemWriter<DespesaXmlEntry> despesaWriter, ExpenseWriter expenseWriter, ExpenseByMonthWriter expenseByMonthWriter) {
+    public CompositeItemWriter<DespesaXmlEntry> compositeDespesaWriter(ExpenseWriter expenseWriter, ExpenseByMonthWriter expenseByMonthWriter) {
         CompositeItemWriter<DespesaXmlEntry> compositeItemWriter = new CompositeItemWriter<>();
-        compositeItemWriter.setDelegates(Arrays.asList(despesaWriter, expenseWriter, expenseByMonthWriter));
+        compositeItemWriter.setDelegates(Arrays.asList(expenseWriter, expenseByMonthWriter));
         return compositeItemWriter;
     }
 

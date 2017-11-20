@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public interface DespesaXmlEntryRepository extends CrudRepository<DespesaXmlEntry, Long> {
 
     DespesaXmlEntry findByNumMesAndNumAnoAndVlrDocumentoAndTxtCNPJCPFAndIdeCadastro(
-            int numMes, int NumAno, BigDecimal vlrDocumento, String txtCNPJCPF, int IdeCadastro
+            int numMes, int NumAno, BigDecimal vlrDocumento, String txtCNPJCPF, Long IdeCadastro
     );
 
 }

@@ -17,7 +17,7 @@ public class Deputy {
     private String name;
 
     @Column(nullable = false, unique = true)
-    private Long deputyXmlEntryId;
+    private Long ideCadastro;
 
     @Column(nullable = false)
     private String uf;
@@ -29,12 +29,12 @@ public class Deputy {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "deputy")
     private List<Expense> expenses;
 
-    public Long getDeputyXmlEntryId() {
-        return deputyXmlEntryId;
+    public Long getIdeCadastro() {
+        return ideCadastro;
     }
 
-    public void setDeputyXmlEntryId(Long deputyXmlEntryId) {
-        this.deputyXmlEntryId = deputyXmlEntryId;
+    public void setIdeCadastro(Long ideCadastro) {
+        this.ideCadastro = ideCadastro;
     }
 
     public Long getId() {
@@ -78,7 +78,7 @@ public class Deputy {
 
         if (id != null ? !id.equals(deputy.id) : deputy.id != null) return false;
         if (name != null ? !name.equals(deputy.name) : deputy.name != null) return false;
-        if (deputyXmlEntryId != null ? !deputyXmlEntryId.equals(deputy.deputyXmlEntryId) : deputy.deputyXmlEntryId != null) return false;
+        if (ideCadastro != null ? !ideCadastro.equals(deputy.ideCadastro) : deputy.ideCadastro != null) return false;
         if (uf != null ? !uf.equals(deputy.uf) : deputy.uf != null) return false;
         return party != null ? party.equals(deputy.party) : deputy.party == null;
     }
@@ -87,7 +87,7 @@ public class Deputy {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (deputyXmlEntryId != null ? deputyXmlEntryId.hashCode() : 0);
+        result = 31 * result + (ideCadastro != null ? ideCadastro.hashCode() : 0);
         result = 31 * result + (uf != null ? uf.hashCode() : 0);
         result = 31 * result + (party != null ? party.hashCode() : 0);
         return result;
@@ -98,7 +98,7 @@ public class Deputy {
         return "Deputy{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", xmlId=" + deputyXmlEntryId +
+                ", ideCadastro=" + ideCadastro +
                 ", uf='" + uf + '\'' +
                 ", party=" + party +
                 '}';

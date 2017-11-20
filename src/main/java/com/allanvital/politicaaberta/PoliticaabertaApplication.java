@@ -1,22 +1,21 @@
 package com.allanvital.politicaaberta;
 
-import org.springframework.batch.core.*;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameter;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.core.scope.StepScope;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@EnableAsync
 @EnableBatchProcessing
 @SpringBootApplication
 public class PoliticaabertaApplication implements CommandLineRunner{
@@ -43,7 +42,7 @@ public class PoliticaabertaApplication implements CommandLineRunner{
         parameterMap.put("startingAt", new JobParameter(new Date()));
 		JobParameters parameters = new JobParameters(parameterMap);
 
-        launcher.run(deputyBatch, parameters);
+        //launcher.run(deputyBatch, parameters);
 	}
 
 }

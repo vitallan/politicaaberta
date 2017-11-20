@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeputadoXmlEntryRepository extends CrudRepository<DeputadoXmlEntry, Long>{
 
-    DeputadoXmlEntry findByIdeCadastro(Integer ideCadastro);
+    DeputadoXmlEntry findByIdeCadastro(Long ideCadastro);
 
 }

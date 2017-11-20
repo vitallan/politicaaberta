@@ -25,7 +25,7 @@ public class Expense {
 
     private String description;
 
-    private Date when;
+    private Date expenseDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deputy_id", nullable = false)
@@ -55,20 +55,20 @@ public class Expense {
         this.receiver = receiver;
     }
 
-    public Date getWhen() {
-        return when;
-    }
-
-    public void setWhen(Date when) {
-        this.when = when;
-    }
-
     public Deputy getDeputy() {
         return deputy;
     }
 
     public void setDeputy(Deputy deputy) {
         this.deputy = deputy;
+    }
+
+    public Date getExpenseDate() {
+        return expenseDate;
+    }
+
+    public void setExpenseDate(Date expenseDate) {
+        this.expenseDate = expenseDate;
     }
 
     public Long getId() {

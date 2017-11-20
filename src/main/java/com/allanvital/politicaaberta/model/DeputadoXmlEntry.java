@@ -18,7 +18,7 @@ public class DeputadoXmlEntry {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     
-    private Integer ideCadastro;
+    private Long ideCadastro;
     private Integer numLegislatura;
     private String nomeParlamentar;
     private String SEXO;
@@ -54,10 +54,10 @@ public class DeputadoXmlEntry {
     public void setId(Long id) {
         this.id = id;
     }
-    public Integer getIdeCadastro() {
+    public Long getIdeCadastro() {
         return ideCadastro;
     }
-    public void setIdeCadastro(Integer ideCadastro) {
+    public void setIdeCadastro(Long ideCadastro) {
         this.ideCadastro = ideCadastro;
     }
     public Integer getNumLegislatura() {
@@ -140,7 +140,7 @@ public class DeputadoXmlEntry {
 
     public Deputy buildDeputy() {
         Deputy deputy = new Deputy();
-        deputy.setDeputyXmlEntryId(this.id);
+        deputy.setIdeCadastro(this.id);
         deputy.setName(WordUtils.capitalize(this.getNomeParlamentar().toLowerCase()));
         deputy.setUf(this.getUFEleito());
         return deputy;

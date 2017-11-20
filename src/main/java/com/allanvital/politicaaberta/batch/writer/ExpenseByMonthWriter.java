@@ -1,9 +1,9 @@
 package com.allanvital.politicaaberta.batch.writer;
 
 import com.allanvital.politicaaberta.model.*;
+import com.allanvital.politicaaberta.repository.DeputyRepository;
 import com.allanvital.politicaaberta.repository.ExpenseByMonthRepository;
 import com.allanvital.politicaaberta.repository.ExpenseSummarizingFeatureLogRepository;
-import com.allanvital.politicaaberta.service.DeputyService;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
@@ -17,12 +17,12 @@ public class ExpenseByMonthWriter implements ItemWriter<DespesaXmlEntry> {
     private SummarizingFeature writerFeature = SummarizingFeature.EXPENDITURE_BY_DEPUTY_BY_MONTH;
 
     private ExpenseSummarizingFeatureLogRepository summarizingRepository;
-    private DeputyService deputyService;
+    private DeputyRepository deputyRepository;
     private ExpenseByMonthRepository repository;
 
-    public ExpenseByMonthWriter(ExpenseSummarizingFeatureLogRepository summarizingRepository, DeputyService deputyService, ExpenseByMonthRepository repository) {
+    public ExpenseByMonthWriter(ExpenseSummarizingFeatureLogRepository summarizingRepository, DeputyRepository deputyRepository, ExpenseByMonthRepository repository) {
         this.summarizingRepository = summarizingRepository;
-        this.deputyService = deputyService;
+        this.deputyRepository = deputyRepository;
         this.repository = repository;
     }
 
@@ -32,15 +32,15 @@ public class ExpenseByMonthWriter implements ItemWriter<DespesaXmlEntry> {
             if(summarizingRepository.findByExpenseXmlEntryIdAndFeature(item.getId(), this.writerFeature) != null) {
                 return;
             }
-            summarizingRepository.save(new ExpenseSummarizingFeatureLog(item.getId(), this.writerFeature));
-            Deputy deputy = deputyService.getDeputyByXmlEntryIdeCadastro(item.getIdeCadastro());
-            ExpenseByMonthAndYear monthAndYear = repository.findByDeputyAndMonthAndYear(deputy, item.getNumMes(), item.getNumAno());
-            if (monthAndYear == null) {
-                monthAndYear = new ExpenseByMonthAndYear(item, deputy);
+            Deputy deputy = deputyRepository.findByIdeCadastro(item.getIdeCadastro());
+            ExpenseByMonthAndYear expenseByMonthAndYear = repository.findByDeputyAndMonthAndYear(deputy, item.getNumMes(), item.getNumAno());
+            if (expenseByMonthAndYear == null) {
+                expenseByMonthAndYear = new ExpenseByMonthAndYear(item, deputy);
             } else {
-                monthAndYear.addValue(item);
+                expenseByMonthAndYear.addValue(item);
             }
-            repository.save(monthAndYear);
+            summarizingRepository.save(new ExpenseSummarizingFeatureLog(item.getId(), this.writerFeature));
+            repository.save(expenseByMonthAndYear);
         });
     }
 

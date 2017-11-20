@@ -21,7 +21,7 @@ public class DespesaXmlEntry {
     
     private String txNomeParlamentar;
 
-    private int ideCadastro;
+    private Long ideCadastro;
 
     private int nuCarteiraParlamentar;
 
@@ -115,10 +115,10 @@ public class DespesaXmlEntry {
     }
 
     @XmlElement(name="idecadastro")
-    public int getIdeCadastro() {
+    public Long getIdeCadastro() {
         return ideCadastro;
     }
-    public void setIdeCadastro(int ideCadastro) {
+    public void setIdeCadastro(Long ideCadastro) {
         this.ideCadastro = ideCadastro;
     }
     public int getNuCarteiraParlamentar() {
@@ -305,7 +305,7 @@ public class DespesaXmlEntry {
         expense.setReceiver(this.getTxtFornecedor());
         expense.setValue(this.getVlrDocumento());
         expense.setDescription(this.getTxtDescricao());
-        expense.setWhen(this.getMonthAndYear());
+        expense.setExpenseDate(this.getMonthAndYear());
         return expense;
     }
 

@@ -22,6 +22,7 @@ public class FileDownloadReader implements ItemReader<File>{
 
     private String outputZippedFilename;//  deputies.zip  "file" + year + ".zip"
     private String downloadUrl;// "http://www.camara.leg.br/internet/deputado/DeputadosXML_52a55.zip" "http://www.camara.leg.br/cotas/Ano-" + year + ".xml.zip"
+    private int executedCount = 0;
 
     public FileDownloadReader(@Value("#{jobParameters['outputZippedFilename']}") String outputZippedFilename,
                               @Value("#{jobParameters['downloadUrl']}") String downloadUrl) {
@@ -49,9 +50,10 @@ public class FileDownloadReader implements ItemReader<File>{
 
     @Override
     public File read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        if (new File(this.outputZippedFilename).exists()) {
+        if (executedCount > 0) {
             return null;
         }
+        executedCount++;
         return this.download(this.outputZippedFilename, this.downloadUrl);
     }
 }

@@ -49,7 +49,7 @@ public class DeputadoXmlEntryReaderTest {
         Deputy deputy = xmlEntry.buildDeputy();
         assertEquals(deputy.getName(), "Abel Mesquita Jr.");
         assertEquals(deputy.getUf(), "RR");
-        assertEquals(deputy.getDeputyXmlEntryId(), xmlId);
+        assertEquals(deputy.getIdeCadastro(), xmlId);
     }
 
 }

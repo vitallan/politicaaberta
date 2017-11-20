@@ -2,12 +2,13 @@ package com.allanvital.politicaaberta.model;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-public class ExpenseByMonthAndYear {
+public class ExpenseByMonthAndYear implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -25,13 +26,22 @@ public class ExpenseByMonthAndYear {
 
     public ExpenseByMonthAndYear(DespesaXmlEntry entry, Deputy deputy) {
         this.deputy = deputy;
-        this.value = entry.getVlrDocumento();
+        if (entry.getVlrDocumento() == null) {
+            this.value = new BigDecimal(0);
+        } else {
+            this.value = entry.getVlrDocumento();
+        }
         this.month = entry.getNumMes();
         this.year = entry.getNumAno();
     }
 
     public void addValue(DespesaXmlEntry xmlEntry) {
-        this.value.add(xmlEntry.getVlrDocumento());
+        if (this.value == null) {
+            this.value = new BigDecimal(0);
+        }
+        if (xmlEntry.getVlrDocumento() != null) {
+            this.value.add(xmlEntry.getVlrDocumento());
+        }
     }
 
     public Long getId() {
