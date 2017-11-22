@@ -1,5 +1,6 @@
 package com.allanvital.politicaaberta.controller;
 
+import com.allanvital.politicaaberta.batch.repository.DeputiesChamberRepository;
 import com.allanvital.politicaaberta.service.JobService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.batch.core.Job;
@@ -22,10 +23,12 @@ public class AdminEndpoints {
 
     private String token;
     private JobService jobService;
+    private DeputiesChamberRepository chamberRepository;
 
-    public AdminEndpoints(@Value("${admin.api.token}") String token, JobService jobService) {
+    public AdminEndpoints(@Value("${admin.api.token}") String token, JobService jobService, DeputiesChamberRepository chamberRepository) {
         this.token = token;
         this.jobService = jobService;
+        this.chamberRepository = chamberRepository;
     }
 
     @PostMapping(value="/deputies")
@@ -45,7 +48,7 @@ public class AdminEndpoints {
             return;
         }
         int year = this.extractYear(request);
-        jobService.executeExpenseBatch(year);
+        jobService.executeExpenseBatch(1L);
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 

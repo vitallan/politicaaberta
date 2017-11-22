@@ -22,6 +22,9 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	springCloudVersion = 'Dalston.SR4'
+}
 
 dependencies {
 	compile('org.apache.commons:commons-text:1.1')
@@ -30,10 +33,17 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mustache')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-batch')
+	compile('org.springframework.cloud:spring-cloud-starter-feign')
     compile('org.springframework:spring-oxm')
 	runtime('com.h2database:h2')
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	//testCompile('org.springframework.batch:spring-batch-test')
 
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }

@@ -23,7 +23,7 @@ public class ExpenseSummarizingFeatureLog {
     private Long expenseXmlEntryId;
 
     @Column(name=FEATURE_COLUMN_NAME)
-    private SummarizingFeature feature;
+    private int feature;
 
     public ExpenseSummarizingFeatureLog () {
 
@@ -31,7 +31,7 @@ public class ExpenseSummarizingFeatureLog {
 
     public ExpenseSummarizingFeatureLog(Long expenseXmlEntryId, SummarizingFeature feature) {
         this.expenseXmlEntryId = expenseXmlEntryId;
-        this.feature = feature;
+        this.feature = feature.getId();
     }
 
     public Long getId() {
@@ -51,10 +51,10 @@ public class ExpenseSummarizingFeatureLog {
     }
 
     public SummarizingFeature getFeature() {
-        return feature;
+        return SummarizingFeature.parse(this.feature);
     }
 
     public void setFeature(SummarizingFeature feature) {
-        this.feature = feature;
+        this.feature = feature.getId();
     }
 }

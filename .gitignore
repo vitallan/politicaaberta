@@ -36,7 +36,7 @@ deputies.zip
 
 politicaaberta.db.mv.db
 app.log
-
+app.log.*
 politicaaberta.db.trace.db
 
 raw.xml

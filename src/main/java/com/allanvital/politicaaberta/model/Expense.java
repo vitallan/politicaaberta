@@ -14,9 +14,6 @@ public class Expense {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private Long expenseXmlEntryId;
-
     private String cpfCpnj;
 
     private BigDecimal value;
@@ -77,14 +74,6 @@ public class Expense {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getExpenseXmlEntryId() {
-        return expenseXmlEntryId;
-    }
-
-    public void setExpenseXmlEntryId(Long expenseXmlEntryId) {
-        this.expenseXmlEntryId = expenseXmlEntryId;
     }
 
     public String getDescription() {
