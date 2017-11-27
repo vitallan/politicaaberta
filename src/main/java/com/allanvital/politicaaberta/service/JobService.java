@@ -54,7 +54,7 @@ public class JobService {
         if (jobs.isEmpty() || (currentExecution != null && currentExecution.isRunning())) {
             return;
         }
-        JobExecutionRequest request =  jobs.remove();
+        JobExecutionRequest request = jobs.poll();
         this.currentExecution = launcher.run(request.getJob(), request.getParameters());
     }
 

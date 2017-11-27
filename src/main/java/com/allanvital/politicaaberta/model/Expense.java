@@ -3,6 +3,9 @@ package com.allanvital.politicaaberta.model;
 import javax.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -37,11 +40,11 @@ public class Expense {
     }
 
     public BigDecimal getValue() {
-        return value;
+        return value.setScale(2, RoundingMode.CEILING);
     }
 
     public void setValue(BigDecimal value) {
-        this.value = value;
+        this.value = value.setScale(2, RoundingMode.CEILING);
     }
 
     public String getReceiver() {
@@ -83,4 +86,17 @@ public class Expense {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getYear() {
+        return this.getLocalDate().getYear();
+    }
+
+    public int getMonth() {
+        return this.getLocalDate().getMonthValue();
+    }
+
+    private LocalDate getLocalDate() {
+        return this.getExpenseDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
 }

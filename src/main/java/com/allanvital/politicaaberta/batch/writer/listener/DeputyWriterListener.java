@@ -34,7 +34,6 @@ public class DeputyWriterListener implements ItemWriteListener<DeputyDto> {
     @Override
     public void afterWrite(List<? extends DeputyDto> items) {
         items.forEach(item -> {
-            log.info("Agendando execucao do job de despesas do deputy officialId=" + item.getOfficialId());
             try {
                 jobService.executeExpenseBatch(item.getOfficialId());
             } catch (JobParametersInvalidException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException e) {

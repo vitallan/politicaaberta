@@ -6,7 +6,8 @@ import com.allanvital.politicaaberta.batch.reader.ExpenseDtoReader;
 import com.allanvital.politicaaberta.batch.repository.dto.DeputyDto;
 import com.allanvital.politicaaberta.batch.repository.dto.ExpenseDto;
 import com.allanvital.politicaaberta.batch.writer.DeputyDtoWriter;
-import com.allanvital.politicaaberta.batch.writer.ExpenseDtoWriter;
+import com.allanvital.politicaaberta.batch.writer.ExpenseByMonthWriter;
+import com.allanvital.politicaaberta.batch.writer.ExpenseWriter;
 import com.allanvital.politicaaberta.batch.writer.listener.DeputyWriterListener;
 import com.allanvital.politicaaberta.model.Expense;
 import org.springframework.batch.core.Job;
@@ -14,8 +15,11 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
 
 @Configuration
 public class BatchConfiguration {
@@ -47,13 +51,20 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step openAndPersistExpense(StepBuilderFactory stepBuilderFactory, ExpenseDtoReader reader, ExpenseDtoWriter writer, ExpenseDtoProcessor processor) {
+    public Step openAndPersistExpense(StepBuilderFactory stepBuilderFactory, ExpenseDtoReader reader, CompositeItemWriter<Expense> writer, ExpenseDtoProcessor processor) {
         return stepBuilderFactory.get("Consulta e persiste despesas")
                 .<ExpenseDto, Expense>chunk(1)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
                 .build();
+    }
+
+    @Bean
+    public CompositeItemWriter<Expense> compositeWriter(ExpenseWriter expenseWriter, ExpenseByMonthWriter expenseByMonthWriter) {
+         CompositeItemWriter<Expense> compositeWriter = new CompositeItemWriter<>();
+         compositeWriter.setDelegates(Arrays.asList(expenseWriter, expenseByMonthWriter));
+         return compositeWriter;
     }
 
 }

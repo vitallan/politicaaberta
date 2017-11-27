@@ -23,21 +23,14 @@ public class ExpenseByMonthAndYear implements Serializable {
     private int year;
 
     public ExpenseByMonthAndYear() {}
-/*
-    public ExpenseByMonthAndYear(DespesaXmlEntry entry, Deputy deputy) {
-        this.deputy = deputy;
-        this.value = entry.getVlrDocumentoAsBigDecimal();
-        this.month = entry.getNumMes();
-        this.year = entry.getNumAno();
+
+    public ExpenseByMonthAndYear(Expense item) {
+        this.deputy = item.getDeputy();
+        this.month = item.getMonth();
+        this.year = item.getYear();
+        this.value = item.getValue();
     }
 
-    public void addValue(DespesaXmlEntry xmlEntry) {
-        if (this.value == null) {
-            this.value = new BigDecimal(0);
-        }
-        this.value.add(xmlEntry.getVlrDocumentoAsBigDecimal());
-    }
-*/
     public Long getId() {
         return id;
     }
@@ -76,5 +69,9 @@ public class ExpenseByMonthAndYear implements Serializable {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public void addValue(Expense item) {
+        this.value = this.value.add(item.getValue());
     }
 }

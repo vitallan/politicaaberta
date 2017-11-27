@@ -12,27 +12,20 @@ import static javax.persistence.GenerationType.IDENTITY;
 })
 public class ExpenseSummarizingFeatureLog {
 
-    protected static final String EXPENSE_COLUMN_NAME = "expenseXmlEntryId";
+    protected static final String EXPENSE_COLUMN_NAME = "expense_id";
     protected static final String FEATURE_COLUMN_NAME = "feature";
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(name=EXPENSE_COLUMN_NAME)
-    private Long expenseXmlEntryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = EXPENSE_COLUMN_NAME, nullable = false)
+    private Expense expense;
 
     @Column(name=FEATURE_COLUMN_NAME)
     private int feature;
 
-    public ExpenseSummarizingFeatureLog () {
-
-    }
-
-    public ExpenseSummarizingFeatureLog(Long expenseXmlEntryId, SummarizingFeature feature) {
-        this.expenseXmlEntryId = expenseXmlEntryId;
-        this.feature = feature.getId();
-    }
 
     public Long getId() {
         return id;
@@ -42,19 +35,19 @@ public class ExpenseSummarizingFeatureLog {
         this.id = id;
     }
 
-    public Long getExpenseXmlEntryId() {
-        return expenseXmlEntryId;
-    }
-
-    public void setExpenseXmlEntryId(Long expenseXmlEntryId) {
-        this.expenseXmlEntryId = expenseXmlEntryId;
-    }
-
     public SummarizingFeature getFeature() {
         return SummarizingFeature.parse(this.feature);
     }
 
     public void setFeature(SummarizingFeature feature) {
         this.feature = feature.getId();
+    }
+
+    public Expense getExpense() {
+        return expense;
+    }
+
+    public void setExpense(Expense expense) {
+        this.expense = expense;
     }
 }

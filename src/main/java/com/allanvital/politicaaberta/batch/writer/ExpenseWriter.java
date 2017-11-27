@@ -14,7 +14,7 @@ import java.util.List;
 
 @StepScope
 @Component
-public class ExpenseDtoWriter implements ItemWriter<Expense> {
+public class ExpenseWriter implements ItemWriter<Expense> {
 
     @Override
     public void write(List<? extends Expense> items) throws Exception {
