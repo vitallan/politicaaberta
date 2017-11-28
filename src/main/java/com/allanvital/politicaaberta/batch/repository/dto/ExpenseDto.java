@@ -205,14 +205,13 @@ public class ExpenseDto {
         expense.setDescription(WordUtils.capitalize(this.getDescription().toLowerCase()));
         expense.setReceiver(WordUtils.capitalize(this.getProviderName().toLowerCase()));
         expense.setCpfCpnj(this.getCnpjCpf());
-        expense.setExpenseDate(this.getDocumentDate());
-        if (this.getDocumentDate() == null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.clear();
-            calendar.set(Calendar.MONTH, this.getMonth());
-            calendar.set(Calendar.YEAR, this.getYear());
-            expense.setExpenseDate(calendar.getTime());
-        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.MONTH, this.getMonth());
+        calendar.set(Calendar.YEAR, this.getYear());
+        expense.setExpenseDate(calendar.getTime());
+
         return expense;
     }
 

@@ -24,7 +24,7 @@ import java.util.Arrays;
 @Configuration
 public class BatchConfiguration {
 
-     @Bean
+    @Bean
     public Job expenseBatch(JobBuilderFactory jobBuilderFactory, Step openAndPersistExpense) {
         return jobBuilderFactory.get("Download e processamento de despesas")
                 .incrementer(new RunIdIncrementer())
