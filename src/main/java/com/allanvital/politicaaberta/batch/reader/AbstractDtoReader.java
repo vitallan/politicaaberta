@@ -1,7 +1,5 @@
 package com.allanvital.politicaaberta.batch.reader;
 
-import com.allanvital.politicaaberta.batch.repository.DeputiesChamberRepository;
-import com.allanvital.politicaaberta.batch.repository.dto.DeputyDto;
 import org.apache.log4j.Logger;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
@@ -26,10 +24,10 @@ public abstract class AbstractDtoReader<T> implements ItemReader<T> {
     }
 
     @Override
-    public T read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    public T read() throws Exception {
         this.populateDtoList();
-        T deputy = this.getDto();
-        return deputy;
+        T object = this.getDto();
+        return object;
     }
 
     private T getDto() {

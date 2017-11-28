@@ -1,10 +1,13 @@
 package com.allanvital.politicaaberta.batch;
 
 import com.allanvital.politicaaberta.batch.processor.ExpenseDtoProcessor;
+import com.allanvital.politicaaberta.batch.reader.CommitteeDtoReader;
 import com.allanvital.politicaaberta.batch.reader.DeputyDtoReader;
 import com.allanvital.politicaaberta.batch.reader.ExpenseDtoReader;
+import com.allanvital.politicaaberta.batch.repository.dto.CommitteeDto;
 import com.allanvital.politicaaberta.batch.repository.dto.DeputyDto;
 import com.allanvital.politicaaberta.batch.repository.dto.ExpenseDto;
+import com.allanvital.politicaaberta.batch.writer.CommitteeDtoWriter;
 import com.allanvital.politicaaberta.batch.writer.DeputyDtoWriter;
 import com.allanvital.politicaaberta.batch.writer.ExpenseByMonthWriter;
 import com.allanvital.politicaaberta.batch.writer.ExpenseWriter;
@@ -26,7 +29,7 @@ public class BatchConfiguration {
 
     @Bean
     public Job expenseBatch(JobBuilderFactory jobBuilderFactory, Step openAndPersistExpense) {
-        return jobBuilderFactory.get("Download e processamento de despesas")
+        return jobBuilderFactory.get("Consulta e processamento de despesas")
                 .incrementer(new RunIdIncrementer())
                 .flow(openAndPersistExpense)
                 .end().build();
@@ -34,9 +37,17 @@ public class BatchConfiguration {
 
     @Bean
     public Job deputyBatch(JobBuilderFactory jobBuilderFactory, Step openAndPersistDeputy) {
-        return jobBuilderFactory.get("Download e processamento de deputados")
+        return jobBuilderFactory.get("Consulta e processamento de deputados")
                 .incrementer(new RunIdIncrementer())
                 .flow(openAndPersistDeputy)
+                .end().build();
+    }
+
+    @Bean
+    public Job commiteeBatch(JobBuilderFactory jobBuilderFactory, Step openAndPersistCommittees) {
+        return jobBuilderFactory.get("Consulta e processamento de orgaos e comites")
+                .incrementer(new RunIdIncrementer())
+                .flow(openAndPersistCommittees)
                 .end().build();
     }
 
@@ -56,6 +67,15 @@ public class BatchConfiguration {
                 .<ExpenseDto, Expense>chunk(1)
                 .reader(reader)
                 .processor(processor)
+                .writer(writer)
+                .build();
+    }
+
+    @Bean
+    public Step openAndPersistCommittees(StepBuilderFactory stepBuilderFactory, CommitteeDtoReader reader, CommitteeDtoWriter writer) {
+        return stepBuilderFactory.get("Consulta e persiste orgaos e comites")
+                .<CommitteeDto, CommitteeDto>chunk(1)
+                .reader(reader)
                 .writer(writer)
                 .build();
     }

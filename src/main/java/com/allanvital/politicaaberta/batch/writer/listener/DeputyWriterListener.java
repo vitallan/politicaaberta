@@ -35,9 +35,10 @@ public class DeputyWriterListener implements ItemWriteListener<DeputyDto> {
     public void afterWrite(List<? extends DeputyDto> items) {
         items.forEach(item -> {
             try {
+                jobService.executeCommitteeBatch(item.getOfficialId());
                 jobService.executeExpenseBatch(item.getOfficialId());
             } catch (JobParametersInvalidException | JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException e) {
-                log.error("Erro ao agendar execucao de job de despesas " + Arrays.toString(e.getStackTrace()));
+                log.error("Erro ao agendar execucao dos jobs colaterais a deputado " + Arrays.toString(e.getStackTrace()));
             }
         });
     }

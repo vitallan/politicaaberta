@@ -26,12 +26,14 @@ public class JobService {
 
     private Job deputyBatch;
     private Job expenseBatch;
+    private Job commiteeBatch;
     private JobLauncher launcher;
 
-    public JobService(Job deputyBatch, JobLauncher launcher, Job expenseBatch) {
+    public JobService(Job deputyBatch, JobLauncher launcher, Job expenseBatch, Job commiteeBatch) {
         this.deputyBatch = deputyBatch;
         this.launcher = launcher;
         this.expenseBatch = expenseBatch;
+        this.commiteeBatch = commiteeBatch;
     }
 
     public void executeDeputyBatch() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
@@ -44,6 +46,14 @@ public class JobService {
     public void executeExpenseBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("Enfileirando batch de despesas do deputado officialId=" + officialId + " ...");
         JobExecutionRequest request = new JobExecutionRequest(expenseBatch);
+        request.addParameter("deputyOfficialId", officialId.toString());
+        request.addParameter("executionTime", new Date().toString());
+        this.jobs.add(request);
+    }
+
+    public void executeCommitteeBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+        log.info("Enfileirando batch de comites do deputado officialId=" + officialId + " ...");
+        JobExecutionRequest request = new JobExecutionRequest(commiteeBatch);
         request.addParameter("deputyOfficialId", officialId.toString());
         request.addParameter("executionTime", new Date().toString());
         this.jobs.add(request);
