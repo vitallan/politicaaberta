@@ -1,5 +1,6 @@
 package com.allanvital.politicaaberta.batch.repository.dto;
 
+import com.allanvital.politicaaberta.model.PropositionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PropositionTypeDto {
@@ -57,4 +58,14 @@ public class PropositionTypeDto {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    public PropositionType buildEntity() {
+        PropositionType type = new PropositionType();
+        type.setOfficialId(this.getId());
+        type.setDescription(this.getDescription());
+        type.setInitials(this.getInitials());
+        type.setName(this.getName());
+        return type;
+    }
+
 }

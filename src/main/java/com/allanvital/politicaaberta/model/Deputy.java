@@ -29,6 +29,11 @@ public class Deputy {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "deputy")
     private List<Expense> expenses;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deputy")
+    private List<Proposition> propositions;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deputy")
+    private List<Committee> committees;
 
     public Long getId() {
         return id;
@@ -107,5 +112,21 @@ public class Deputy {
 
     public void setOfficialId(Long officialId) {
         this.officialId = officialId;
+    }
+
+    public List<Proposition> getPropositions() {
+        return propositions;
+    }
+
+    public void setPropositions(List<Proposition> propositions) {
+        this.propositions = propositions;
+    }
+
+    public List<Committee> getCommittees() {
+        return committees;
+    }
+
+    public void setCommittees(List<Committee> committees) {
+        this.committees = committees;
     }
 }

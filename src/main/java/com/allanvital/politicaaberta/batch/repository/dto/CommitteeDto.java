@@ -1,5 +1,6 @@
 package com.allanvital.politicaaberta.batch.repository.dto;
 
+import com.allanvital.politicaaberta.model.Committee;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -86,4 +87,16 @@ public class CommitteeDto {
                 ", initials='" + initials + '\'' +
                 '}';
     }
+
+    public Committee buildEntity() {
+        Committee committee = new Committee();
+        committee.setEndDate(this.getEndDate());
+        committee.setStartDate(this.getStartDate());
+        committee.setOfficialId(this.getId());
+        committee.setInitials(this.getInitials());
+        committee.setName(this.getName());
+        committee.setRole(this.getRole());
+        return committee;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.allanvital.politicaaberta.batch.repository.dto;
 
+import com.allanvital.politicaaberta.model.Proposition;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PropositionDto {
@@ -93,4 +94,15 @@ public class PropositionDto {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    public Proposition buildEntity() {
+        Proposition proposition = new Proposition();
+        proposition.setDescription(this.getDescription());
+        proposition.setNumber(this.getNumber());
+        proposition.setOfficialId(this.getId());
+        proposition.setUri(this.getUri());
+        proposition.setYear(this.getYear());
+        return proposition;
+    }
+
 }
