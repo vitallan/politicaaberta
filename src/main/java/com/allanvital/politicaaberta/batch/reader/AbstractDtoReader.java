@@ -31,7 +31,7 @@ public abstract class AbstractDtoReader<T> implements ItemReader<T> {
     }
 
     private T getDto() {
-        if (dtos.isEmpty()) {
+        if (dtos == null || dtos.isEmpty()) {
             log.info("Nao ha novas paginas e a lista foi consumida. Terminando.");
             return null;
         }

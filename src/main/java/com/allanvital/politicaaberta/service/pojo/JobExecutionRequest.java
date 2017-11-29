@@ -16,8 +16,9 @@ public class JobExecutionRequest {
         this.job = job;
     }
 
-    public void addParameter(String key, String value) {
+    public JobExecutionRequest addParameter(String key, String value) {
         parameters.put(key, new JobParameter(value));
+        return this;
     }
 
     public Job getJob() {
