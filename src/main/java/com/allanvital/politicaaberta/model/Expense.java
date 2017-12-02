@@ -17,7 +17,7 @@ public class Expense {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    private String cpfCpnj;
+    private String cpfCnpj;
 
     private BigDecimal value;
 
@@ -31,12 +31,12 @@ public class Expense {
     @JoinColumn(name = "deputy_id", nullable = false)
     private Deputy deputy;
 
-    public String getCpfCpnj() {
-        return cpfCpnj;
+    public String getCpfCnpj() {
+        return cpfCnpj;
     }
 
-    public void setCpfCpnj(String cpfCpnj) {
-        this.cpfCpnj = cpfCpnj;
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
 
     public BigDecimal getValue() {

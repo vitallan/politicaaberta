@@ -6,7 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.WordUtils;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class ExpenseDto {
@@ -204,13 +205,11 @@ public class ExpenseDto {
         expense.setValue(this.getDocumentGrossValue());
         expense.setDescription(WordUtils.capitalize(this.getDescription().toLowerCase()));
         expense.setReceiver(WordUtils.capitalize(this.getProviderName().toLowerCase()));
-        expense.setCpfCpnj(this.getCnpjCpf());
+        expense.setCpfCnpj(this.getCnpjCpf());
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.MONTH, this.getMonth());
-        calendar.set(Calendar.YEAR, this.getYear());
-        expense.setExpenseDate(calendar.getTime());
+        YearMonth yearMonth = YearMonth.of(this.getYear(), this.getMonth());
+        Date date = Date.from(yearMonth.atDay(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        expense.setExpenseDate(date);
 
         return expense;
     }
