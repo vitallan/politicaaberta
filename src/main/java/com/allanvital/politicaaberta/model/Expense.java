@@ -99,4 +99,8 @@ public class Expense {
         return this.getExpenseDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
+    public String getDeputyName() {
+        return this.getDeputy().getName();
+    }
+
 }

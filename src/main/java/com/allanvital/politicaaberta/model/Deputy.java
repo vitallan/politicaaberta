@@ -19,6 +19,9 @@ public class Deputy {
     @Column(nullable = false, unique = true)
     private Long officialId;
 
+    @Column(nullable = false, unique = true)
+    private String normalizedName;
+
     @Column(nullable = false)
     private String uf;
 
@@ -128,5 +131,13 @@ public class Deputy {
 
     public void setCommittees(List<Committee> committees) {
         this.committees = committees;
+    }
+
+    public String getNormalizedName() {
+        return normalizedName;
+    }
+
+    public void setNormalizedName(String normalizedName) {
+        this.normalizedName = normalizedName;
     }
 }

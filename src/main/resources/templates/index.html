@@ -86,15 +86,11 @@
 					<h2>Última Atualização: </h2>
 				</div>
 				<div class="col-md-6 text-center">
-					<h3>Quem mais usou a cota parlamentar em 00/0000</h3>
+					<h3>Quem mais usou a cota parlamentar em {{month}}/{{year}}</h3>
 					<div class="list-group">
-						<a href="#" class="list-group-item">First item</a>
-						<a href="#" class="list-group-item">Second item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
+						{{#expenses}}
+							<a href="#" class="list-group-item">{{value}} - {{deputyName}}</a>
+						{{/expenses}}
 					</div>
 				</div>
 				<div class="col-md-6 text-center">

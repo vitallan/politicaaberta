@@ -4,6 +4,9 @@ import com.allanvital.politicaaberta.model.Deputy;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.WordUtils;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 public class DeputyDto {
 
     @JsonProperty("id")
@@ -101,7 +104,17 @@ public class DeputyDto {
         deputy.setUf(this.getUf());
         deputy.setName(WordUtils.capitalize(this.getName().toLowerCase()));
         deputy.setOfficialId(this.getOfficialId());
+        deputy.setNormalizedName(this.normalizeName(deputy.getName()));
         return deputy;
+    }
+
+    private String normalizeName(String name) {
+        String normalized = Normalizer
+                .normalize(name, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "")
+                .replaceAll(" ", "-")
+                .toLowerCase();
+        return normalized;
     }
 
     @Override

@@ -74,4 +74,8 @@ public class ExpenseByMonthAndYear implements Serializable {
     public void addValue(Expense item) {
         this.value = this.value.add(item.getValue());
     }
+
+    public String getDeputyName() {
+        return this.getDeputy().getName();
+    }
 }
