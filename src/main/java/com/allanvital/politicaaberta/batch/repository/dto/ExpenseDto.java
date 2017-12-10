@@ -202,15 +202,13 @@ public class ExpenseDto {
 
     public Expense buildExpense() {
         Expense expense = new Expense();
-        expense.setValue(this.getDocumentGrossValue());
+        expense.setValue(this.getDocumentNetValue());
         expense.setDescription(WordUtils.capitalize(this.getDescription().toLowerCase()));
         expense.setReceiver(WordUtils.capitalize(this.getProviderName().toLowerCase()));
         expense.setCpfCnpj(this.getCnpjCpf());
-
-        YearMonth yearMonth = YearMonth.of(this.getYear(), this.getMonth());
-        Date date = Date.from(yearMonth.atDay(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        expense.setExpenseDate(date);
-
+        expense.setYear(this.getYear());
+        expense.setMonth(this.getMonth());
+        expense.setDocumentNumber(this.getDocumentNumber());
         return expense;
     }
 

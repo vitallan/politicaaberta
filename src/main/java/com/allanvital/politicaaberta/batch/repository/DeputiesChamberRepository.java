@@ -14,8 +14,8 @@ public interface DeputiesChamberRepository {
     @RequestMapping(method = RequestMethod.GET, value = "/deputados?ordenarPor=nome&itens=100&pagina={page}")
     ChamberEnvelop<DeputyDto> findDeputies(@RequestParam(value="page")int page);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/deputados/{id}/despesas?itens=100&pagina={page}")
-    ChamberEnvelop<ExpenseDto> findExpensesFromDeputy(@RequestParam(value="id") Long officialDeputyId, @RequestParam(value="page") int page);
+    @RequestMapping(method = RequestMethod.GET, value = "/deputados/{id}/despesas?ano={year}&mes={month}&itens=100&pagina={page}")
+    ChamberEnvelop<ExpenseDto> findExpensesFromDeputy(@RequestParam(value="id") Long officialDeputyId, @RequestParam(value="year") int year, @RequestParam(value="month") int month, @RequestParam(value="page") int page);
 
     @RequestMapping(method = RequestMethod.GET, value = "/deputados/{id}/orgaos?itens=100&pagina={page}")
     ChamberEnvelop<CommitteeDto> findCommitteesFromDeputy(@RequestParam(value="id") Long officialDeputyId, @RequestParam(value="page") int page);

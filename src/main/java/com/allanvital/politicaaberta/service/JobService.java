@@ -41,27 +41,27 @@ public class JobService {
         this.propositionBatch = propositionBatch;
     }
 
-    public void executeDeputyBatch() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public void queueDeputyBatch() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("Enfileirando batch de deputados...");
         this.jobs.add(this.buildSimpleJobExecutionRequest(deputyBatch));
     }
 
-    public void executeExpenseBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public void queueExpenseBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("Enfileirando batch de despesas do deputado officialId=" + officialId + " ...");
         this.jobs.add(this.buildSimpleJobExecutionRequest(expenseBatch).addParameter("deputyOfficialId", officialId.toString()));
     }
 
-    public void executeCommitteeBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public void queueCommitteeBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("Enfileirando batch de comites do deputado officialId=" + officialId + " ...");
         this.jobs.add(this.buildSimpleJobExecutionRequest(commiteeBatch).addParameter("deputyOfficialId", officialId.toString()));
     }
 
-    public void executePropositionBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public void queuePropositionBatch(Long officialId) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("Enfileirando batch de proposicoes do deputado officialId=" + officialId + " ...");
         this.jobs.add(this.buildSimpleJobExecutionRequest(propositionBatch).addParameter("deputyOfficialId", officialId.toString()));
     }
 
-    public void executePropositionTypeBatch() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public void queuePropositionTypeBatch() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.info("Enfileirando batch de tipos de proposicoes");
         this.jobs.add(this.buildSimpleJobExecutionRequest(propositionTypeBatch));
     }
@@ -77,7 +77,7 @@ public class JobService {
 
     private JobExecutionRequest buildSimpleJobExecutionRequest(Job job) {
         JobExecutionRequest request = new JobExecutionRequest(job);
-        request.addParameter("executionTime", new Date().toString());
+        request.addParameter("executionStartTime", new Date().toString());
         return request;
     }
 

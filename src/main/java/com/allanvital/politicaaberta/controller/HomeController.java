@@ -1,13 +1,17 @@
 package com.allanvital.politicaaberta.controller;
 
+import com.allanvital.politicaaberta.model.Expense;
 import com.allanvital.politicaaberta.model.ExpenseByMonthAndYear;
 import com.allanvital.politicaaberta.repository.ExpenseByMonthRepository;
+import com.allanvital.politicaaberta.repository.ExpenseRepository;
+import com.allanvital.politicaaberta.utils.DateShortcuts;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -17,20 +21,24 @@ import java.util.Map;
 public class HomeController {
 
     private ExpenseByMonthRepository expenseByMonthRepository;
+    private ExpenseRepository expenseRepository;
 
-    public HomeController(ExpenseByMonthRepository expenseByMonthRepository) {
+    public HomeController(ExpenseByMonthRepository expenseByMonthRepository, ExpenseRepository expenseRepository) {
         this.expenseByMonthRepository = expenseByMonthRepository;
+        this.expenseRepository = expenseRepository;
     }
 
     @GetMapping
     public String home (Model model) {
-        LocalDate lastMonth = LocalDate.now().minusMonths(1);
-        int month = lastMonth.getMonthValue();
-        int year = lastMonth.getYear();
+        int month = DateShortcuts.getLastMonth();
+        int year = DateShortcuts.getLastMonthYear();
 
-        List<ExpenseByMonthAndYear> expenses = expenseByMonthRepository.findTop10ByMonthAndYearOrderByValueDesc(month, year);
+        List<ExpenseByMonthAndYear> monthlyExpenses = expenseByMonthRepository.findTop10ByMonthAndYearOrderByValueDesc(month, year);
+        List<Expense> biggestExpenses = expenseRepository.findTop10ByMonthAndYearOrderByValueDesc(month, year);
 
-        model.addAttribute("expenses", expenses);
+
+        model.addAttribute("monthlyExpenses", monthlyExpenses);
+        model.addAttribute("biggestExpenses", biggestExpenses);
         model.addAttribute("month", month + "");
         model.addAttribute("year", year + "");
 

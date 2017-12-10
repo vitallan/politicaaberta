@@ -83,27 +83,20 @@
 	<div id="fh5co-featured-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<h2>Última Atualização: </h2>
-				</div>
 				<div class="col-md-6 text-center">
 					<h3>Quem mais usou a cota parlamentar em ${month}/${year}</h3>
 					<div class="list-group">
-					    <#list expenses as expense>
-                            <a href="#" class="list-group-item">${expense.value} - ${expense.deputyName}</a>
+					    <#list monthlyExpenses as expense>
+                            <a href="#" class="list-group-item"><strong>R$ ${expense.value}</strong> - ${expense.deputyName}</a>
 					    </#list>
 					</div>
 				</div>
 				<div class="col-md-6 text-center">
-					<h3>Quais os partidos que tem, em média, os deputados que mais usam a cota</h3>
+					<h3>Quais foram as despesas mais caras em ${month}/${year}</h3>
 					<div class="list-group">
-						<a href="#" class="list-group-item">First item</a>
-						<a href="#" class="list-group-item">Second item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
-						<a href="#" class="list-group-item">Third item</a>
+						<#list biggestExpenses as expense>
+                            <a href="#" class="list-group-item"><strong>R$ ${expense.value}</strong> - ${expense.deputyName} em <strong>${expense.receiver}</strong></a>
+                        </#list>
 					</div>
 				</div>
 			</div>

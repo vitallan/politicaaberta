@@ -2,6 +2,7 @@ package com.allanvital.politicaaberta.batch.reader;
 
 import com.allanvital.politicaaberta.batch.repository.DeputiesChamberRepository;
 import com.allanvital.politicaaberta.batch.repository.dto.ExpenseDto;
+import com.allanvital.politicaaberta.utils.DateShortcuts;
 import org.apache.log4j.Logger;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,9 @@ public class ExpenseDtoReader extends AbstractDtoReader<ExpenseDto> {
 
     @Override
     protected List<ExpenseDto> findDtos(int page) {
-        return repository.findExpensesFromDeputy(new Long(deputyOfficialId), page).getData();
+        int year = DateShortcuts.getLastMonthYear();
+        int month = DateShortcuts.getLastMonth();
+        return repository.findExpensesFromDeputy(new Long(deputyOfficialId), year, month, page).getData();
     }
 
 }

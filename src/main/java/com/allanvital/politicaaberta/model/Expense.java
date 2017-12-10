@@ -25,11 +25,29 @@ public class Expense {
 
     private String description;
 
-    private Date expenseDate;
+    private int year;
+    private int month;
+    private String documentNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deputy_id", nullable = false)
     private Deputy deputy;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
 
     public String getCpfCnpj() {
         return cpfCnpj;
@@ -63,14 +81,6 @@ public class Expense {
         this.deputy = deputy;
     }
 
-    public Date getExpenseDate() {
-        return expenseDate;
-    }
-
-    public void setExpenseDate(Date expenseDate) {
-        this.expenseDate = expenseDate;
-    }
-
     public Long getId() {
         return id;
     }
@@ -87,20 +97,15 @@ public class Expense {
         this.description = description;
     }
 
-    public int getYear() {
-        return this.getLocalDate().getYear();
-    }
-
-    public int getMonth() {
-        return this.getLocalDate().getMonthValue();
-    }
-
-    private LocalDate getLocalDate() {
-        return this.getExpenseDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    }
-
     public String getDeputyName() {
         return this.getDeputy().getName();
     }
 
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
 }

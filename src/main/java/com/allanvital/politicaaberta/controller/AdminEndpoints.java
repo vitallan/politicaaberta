@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.Normalizer;
 
 @RestController
 @RequestMapping("/admin")
@@ -26,23 +25,14 @@ public class AdminEndpoints {
         this.jobService = jobService;
     }
 
-    @PostMapping(value="/deputies")
+    @PostMapping(value="/load")
     public void processDeputies(HttpServletRequest request, HttpServletResponse response) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         if (!token.equals(request.getHeader("token"))) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        jobService.executeDeputyBatch();
-        response.setStatus(HttpServletResponse.SC_ACCEPTED);
-    }
-
-    @PostMapping("/propositionTypes")
-    public void processExpenses(HttpServletRequest request, HttpServletResponse response) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
-        if (!token.equals(request.getHeader("token"))) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
-        jobService.executePropositionTypeBatch();
+        jobService.queuePropositionTypeBatch();
+        jobService.queueDeputyBatch();
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
     }
 

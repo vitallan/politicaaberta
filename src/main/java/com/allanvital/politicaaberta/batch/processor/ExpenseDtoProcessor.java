@@ -32,7 +32,7 @@ public class ExpenseDtoProcessor implements ItemProcessor<ExpenseDto, Expense> {
         log.info("Processando " + item);
         Deputy deputy = deputyRepository.findByOfficialId(new Long(this.deputyOfficialId));
         Expense expense = item.buildExpense();
-        expense = expenseRepository.findByDeputyAndValueAndExpenseDateAndDescription(deputy, expense.getValue(), expense.getExpenseDate(), expense.getDescription());
+        expense = expenseRepository.findByDeputyAndValueAndYearAndMonthAndDescriptionAndDocumentNumber(deputy, expense.getValue(), expense.getYear(), expense.getMonth(), expense.getDescription(), expense.getDocumentNumber());
         if (expense == null) {
             log.info("Expense ainda nao persistido. Salvando... " + item);
             expense = item.buildExpense();
