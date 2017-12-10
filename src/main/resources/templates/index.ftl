@@ -3,7 +3,8 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -86,11 +87,11 @@
 					<h2>Última Atualização: </h2>
 				</div>
 				<div class="col-md-6 text-center">
-					<h3>Quem mais usou a cota parlamentar em {{month}}/{{year}}</h3>
+					<h3>Quem mais usou a cota parlamentar em ${month}/${year}</h3>
 					<div class="list-group">
-						{{#expenses}}
-							<a href="#" class="list-group-item">{{value}} - {{deputyName}}</a>
-						{{/expenses}}
+					    <#list expenses as expense>
+                            <a href="#" class="list-group-item">${expense.value} - ${expense.deputyName}</a>
+					    </#list>
 					</div>
 				</div>
 				<div class="col-md-6 text-center">
