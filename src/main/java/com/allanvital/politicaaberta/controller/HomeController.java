@@ -9,12 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -30,12 +26,11 @@ public class HomeController {
 
     @GetMapping
     public String home (Model model) {
-        int month = DateShortcuts.getLastMonth();
-        int year = DateShortcuts.getLastMonthYear();
+        int month = DateShortcuts.lastMonth();
+        int year = DateShortcuts.yearFromLastMonth();
 
         List<ExpenseByMonthAndYear> monthlyExpenses = expenseByMonthRepository.findTop10ByMonthAndYearOrderByValueDesc(month, year);
         List<Expense> biggestExpenses = expenseRepository.findTop10ByMonthAndYearOrderByValueDesc(month, year);
-
 
         model.addAttribute("monthlyExpenses", monthlyExpenses);
         model.addAttribute("biggestExpenses", biggestExpenses);

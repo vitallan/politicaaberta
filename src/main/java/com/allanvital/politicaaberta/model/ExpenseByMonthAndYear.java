@@ -78,4 +78,9 @@ public class ExpenseByMonthAndYear implements Serializable {
     public String getDeputyName() {
         return this.getDeputy().getName();
     }
+
+    public String getDeputyNormalizedName() {
+        return this.getDeputy().getNormalizedName();
+    }
+
 }

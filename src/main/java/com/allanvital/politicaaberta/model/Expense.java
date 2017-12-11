@@ -101,6 +101,10 @@ public class Expense {
         return this.getDeputy().getName();
     }
 
+    public String getDeputyNormalizedName() {
+        return this.getDeputy().getNormalizedName();
+    }
+
     public String getDocumentNumber() {
         return documentNumber;
     }

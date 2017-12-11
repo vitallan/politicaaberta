@@ -7,4 +7,6 @@ public interface DeputyRepository extends PagingAndSortingRepository<Deputy, Lon
 
     Deputy findByOfficialId(Long ideCadastro);
 
+    Deputy findByNormalizedName(String normalizedName);
+
 }

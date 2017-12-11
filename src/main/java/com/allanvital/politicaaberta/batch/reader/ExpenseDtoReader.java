@@ -26,8 +26,8 @@ public class ExpenseDtoReader extends AbstractDtoReader<ExpenseDto> {
 
     @Override
     protected List<ExpenseDto> findDtos(int page) {
-        int year = DateShortcuts.getLastMonthYear();
-        int month = DateShortcuts.getLastMonth();
+        int year = DateShortcuts.yearFromLastMonth();
+        int month = DateShortcuts.lastMonth();
         return repository.findExpensesFromDeputy(new Long(deputyOfficialId), year, month, page).getData();
     }
 

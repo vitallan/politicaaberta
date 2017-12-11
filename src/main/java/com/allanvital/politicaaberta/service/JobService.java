@@ -67,7 +67,7 @@ public class JobService {
     }
 
     @Scheduled(fixedDelay = 1000)
-    public void executeNextJob() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    private void executeNextJob() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         if (jobs.isEmpty() || (currentExecution != null && currentExecution.isRunning())) {
             return;
         }
