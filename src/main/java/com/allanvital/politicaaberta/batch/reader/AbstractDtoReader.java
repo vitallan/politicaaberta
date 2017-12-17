@@ -32,7 +32,7 @@ public abstract class AbstractDtoReader<T> implements ItemReader<T> {
 
     private T getDto() {
         if (dtos == null || dtos.isEmpty()) {
-            log.info("Nao ha novas paginas e a lista foi consumida. Terminando.");
+            log.debug("Nao ha novas paginas e a lista foi consumida. Terminando.");
             return null;
         }
         T dto = dtos.remove(0);
@@ -43,7 +43,7 @@ public abstract class AbstractDtoReader<T> implements ItemReader<T> {
     private void populateDtoList() {
         if (this.dtos.isEmpty()) {
             currentPage++;
-            log.info("Listagem vazia, buscando pagina " + currentPage + " de dtos");
+            log.debug("Listagem vazia, buscando pagina " + currentPage + " de dtos");
             this.dtos = findDtos(currentPage);
         }
     }

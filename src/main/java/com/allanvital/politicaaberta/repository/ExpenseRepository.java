@@ -16,6 +16,6 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long> {
 
     List<Expense> findTop10ByMonthAndYearOrderByValueDesc(int month, int year);
 
-    List<Expense> findByDeputyAndMonthAndYear(Deputy deputy, int month, int year);
+    List<Expense> findByDeputyAndMonthAndYearOrderByValueDesc(Deputy deputy, int month, int year);
 
 }

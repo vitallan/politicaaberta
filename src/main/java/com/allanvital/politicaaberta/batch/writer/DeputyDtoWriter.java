@@ -29,11 +29,11 @@ public class DeputyDtoWriter implements ItemWriter<DeputyDto> {
     @Override
     public void write(List<? extends DeputyDto> items) throws Exception {
         items.forEach((item) -> {
-            log.info("Checando a existencia do Deputy referente ao officialId" + item.getOfficialId());
+            log.debug("Checando a existencia do Deputy referente ao officialId" + item.getOfficialId());
             Party party = partyRepository.findOrCreate(item.getPartyName());
             Deputy deputy = repository.findByOfficialId(item.getOfficialId());
             if (deputy == null) {
-                log.info("Persistindo Deputy referente ao officialId=" + item.getOfficialId());
+                log.debug("Persistindo Deputy referente ao officialId=" + item.getOfficialId());
                 deputy = item.buildDeputy();
                 deputy.setParty(party);
                 repository.save(deputy);

@@ -5,8 +5,8 @@ import com.allanvital.politicaaberta.model.ExpenseByMonthAndYear;
 public class ThreeMonthsSummarizedExpenses {
 
     private ExpenseByMonthAndYear lastMonthSummarized;
-    private  ExpenseByMonthAndYear twoMonthsAgoSummarized;
-    private  ExpenseByMonthAndYear threeMonthsAgoSummarized;
+    private ExpenseByMonthAndYear twoMonthsAgoSummarized;
+    private ExpenseByMonthAndYear threeMonthsAgoSummarized;
 
     public ExpenseByMonthAndYear getLastMonth() {
         return lastMonthSummarized;

@@ -18,9 +18,9 @@ public class ExpenseService {
     public ThreeMonthExpenses getLastThreeMonthsExpenses(Deputy deputy) {
         ThreeMonthExpenses expenses = new ThreeMonthExpenses();
 
-        expenses.setExpensesFromLastMonth(repository.findByDeputyAndMonthAndYear(deputy, DateShortcuts.lastMonth(), DateShortcuts.yearFromLastMonth()));
-        expenses.setExpensesFromTwoMonthsAgo(repository.findByDeputyAndMonthAndYear(deputy, DateShortcuts.twoMonthsAgo(), DateShortcuts.yearFromTwoMonthsAgo()));
-        expenses.setExpensesFromThreeMonthsAgo(repository.findByDeputyAndMonthAndYear(deputy, DateShortcuts.threeMonthsAgo(), DateShortcuts.yearFromThreeMonthsAgo()));
+        expenses.setExpensesFromLastMonth(repository.findByDeputyAndMonthAndYearOrderByValueDesc(deputy, DateShortcuts.lastMonth(), DateShortcuts.yearFromLastMonth()));
+        expenses.setExpensesFromTwoMonthsAgo(repository.findByDeputyAndMonthAndYearOrderByValueDesc(deputy, DateShortcuts.twoMonthsAgo(), DateShortcuts.yearFromTwoMonthsAgo()));
+        expenses.setExpensesFromThreeMonthsAgo(repository.findByDeputyAndMonthAndYearOrderByValueDesc(deputy, DateShortcuts.threeMonthsAgo(), DateShortcuts.yearFromThreeMonthsAgo()));
 
         return expenses;
     }

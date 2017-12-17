@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -48,11 +49,11 @@ public class ExpenseByMonthAndYear implements Serializable {
     }
 
     public BigDecimal getValue() {
-        return value;
+        return value.setScale(2, RoundingMode.CEILING);
     }
 
     public void setValue(BigDecimal value) {
-        this.value = value;
+        this.value = value.setScale(2, RoundingMode.CEILING);
     }
 
     public int getMonth() {

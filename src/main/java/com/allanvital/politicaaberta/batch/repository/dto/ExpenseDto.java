@@ -1,6 +1,7 @@
 package com.allanvital.politicaaberta.batch.repository.dto;
 
 import com.allanvital.politicaaberta.model.Expense;
+import com.allanvital.politicaaberta.model.ServiceProvider;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.WordUtils;
@@ -200,12 +201,17 @@ public class ExpenseDto {
         this.installment = installment;
     }
 
+    public ServiceProvider buildServiceProvider() {
+        ServiceProvider provider = new ServiceProvider();
+        provider.setName(WordUtils.capitalize(this.getProviderName().toLowerCase()));
+        provider.setCpfCnpj(this.getCnpjCpf());
+        return provider;
+    }
+
     public Expense buildExpense() {
         Expense expense = new Expense();
         expense.setValue(this.getDocumentNetValue());
         expense.setDescription(WordUtils.capitalize(this.getDescription().toLowerCase()));
-        expense.setReceiver(WordUtils.capitalize(this.getProviderName().toLowerCase()));
-        expense.setCpfCnpj(this.getCnpjCpf());
         expense.setYear(this.getYear());
         expense.setMonth(this.getMonth());
         expense.setDocumentNumber(this.getDocumentNumber());

@@ -17,11 +17,7 @@ public class Expense {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    private String cpfCnpj;
-
     private BigDecimal value;
-
-    private String receiver;
 
     private String description;
 
@@ -32,6 +28,10 @@ public class Expense {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deputy_id", nullable = false)
     private Deputy deputy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_provider_id", nullable = false)
+    private ServiceProvider serviceProvider;
 
     public int getYear() {
         return year;
@@ -49,28 +49,12 @@ public class Expense {
         this.month = month;
     }
 
-    public String getCpfCnpj() {
-        return cpfCnpj;
-    }
-
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
-    }
-
     public BigDecimal getValue() {
         return value.setScale(2, RoundingMode.CEILING);
     }
 
     public void setValue(BigDecimal value) {
         this.value = value.setScale(2, RoundingMode.CEILING);
-    }
-
-    public String getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
     }
 
     public Deputy getDeputy() {
@@ -111,5 +95,13 @@ public class Expense {
 
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
+    }
+
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 }
