@@ -104,4 +104,8 @@ public class Expense {
     public void setServiceProvider(ServiceProvider serviceProvider) {
         this.serviceProvider = serviceProvider;
     }
+
+    public String getReceiver() {
+        return this.getServiceProvider().getName();
+    }
 }

@@ -40,4 +40,9 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/faq")
+    public String faq() {
+        return "faq";
+    }
+
 }

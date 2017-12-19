@@ -15,7 +15,7 @@
 					<h3>Quem mais usou a cota parlamentar em ${month}/${year}</h3>
 					<div class="list-group">
 					    <#list monthlyExpenses as expense>
-                            <a href="/deputado/${expense.deputyNormalizedName}" class="list-group-item"><strong>R$ ${expense.value}</strong> - ${expense.deputyName}</a>
+                            <a href="/deputados/${expense.deputyNormalizedName}" class="list-group-item"><strong>R$ ${expense.value}</strong> - ${expense.deputyName}</a>
 					    </#list>
 					</div>
 				</div>
@@ -23,7 +23,7 @@
 					<h3>Quais foram as despesas mais caras em ${month}/${year}</h3>
 					<div class="list-group">
 						<#list biggestExpenses as expense>
-                            <a href="/deputado/${expense.deputyNormalizedName}" class="list-group-item"><strong>R$ ${expense.value}</strong> - ${expense.deputyName} em <strong>${expense.receiver}</strong></a>
+                            <a href="/deputados/${expense.deputyNormalizedName}" class="list-group-item"><strong>R$ ${expense.value}</strong> - ${expense.deputyName} em <strong>${expense.receiver}</strong></a>
                         </#list>
 					</div>
 				</div>

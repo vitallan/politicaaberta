@@ -13,7 +13,7 @@ public class ExpenseWriter implements ItemWriter<Expense> {
 
     @Override
     public void write(List<? extends Expense> items) throws Exception {
-        items.forEach(System.out::println);
+
     }
 
 }

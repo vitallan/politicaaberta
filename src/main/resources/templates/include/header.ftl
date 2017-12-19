@@ -61,9 +61,17 @@
                 <h1><i class="sl-icon-briefcase"></i><a href="/">Política Aberta</a></h1>
                 <nav role="navigation">
                     <ul>
-                        <li><a class="active" href="/">Inicio</a></li>
-                        <li><a href="/deputados">Deputados</a></li>
-                        <li><a href="/faq">Perguntas Frequentes</a></li>
+                        <li><a <#if springMacroRequestContext.requestUri = "/">
+                                class="active"
+                            </#if> href="/">Inicio</a></li>
+                        <li><a
+                            <#if springMacroRequestContext.requestUri?contains("/deputados")>
+                                class="active"
+                            </#if> href="/deputados">Deputados</a></li>
+                        <li><a
+                            <#if springMacroRequestContext.requestUri?contains("/faq")>
+                                class="active"
+                            </#if> href="/faq">Perguntas Frequentes</a></li>
                     </ul>
                 </nav>
             </div>

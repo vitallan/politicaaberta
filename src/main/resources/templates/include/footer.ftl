@@ -24,6 +24,14 @@
 </footer>
         </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70145133-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70145133-2');
+</script>
 
         <!-- jQuery -->
 <script src="/static/js/jquery.min.js"></script>

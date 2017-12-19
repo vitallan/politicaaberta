@@ -36,7 +36,7 @@ public abstract class AbstractDtoReader<T> implements ItemReader<T> {
             return null;
         }
         T dto = dtos.remove(0);
-        log.info("Efetuando leitura de " + dto);
+        log.debug("Efetuando leitura de " + dto);
         return dto;
     }
 

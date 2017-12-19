@@ -1,6 +1,7 @@
 package com.allanvital.politicaaberta.batch.repository.dto;
 
 import com.allanvital.politicaaberta.model.Deputy;
+import com.allanvital.politicaaberta.utils.NormalizerShortcuts;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.WordUtils;
 
@@ -104,17 +105,8 @@ public class DeputyDto {
         deputy.setUf(this.getUf());
         deputy.setName(WordUtils.capitalize(this.getName().toLowerCase()));
         deputy.setOfficialId(this.getOfficialId());
-        deputy.setNormalizedName(this.normalizeName(deputy.getName()));
+        deputy.setNormalizedName(NormalizerShortcuts.normalize(deputy.getName()));
         return deputy;
-    }
-
-    private String normalizeName(String name) {
-        String normalized = Normalizer
-                .normalize(name, Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]", "")
-                .replaceAll(" ", "-")
-                .toLowerCase();
-        return normalized;
     }
 
     @Override
