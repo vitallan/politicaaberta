@@ -45,6 +45,9 @@ public class DeputyDetail {
     }
 
     public BigDecimal getLastMonthSummarized() {
+        if (summarizedExpenses.getLastMonth() == null) {
+            return new BigDecimal(0);
+        }
         return summarizedExpenses.getLastMonth().getValue();
     }
 
