@@ -8,7 +8,7 @@ ENV DB_URL ${DB_URL}
 ENV DB_USERNAME ${DB_USERNAME}
 ENV DB_PASSWORD ${DB_PASSWORD}
 
-ADD target/web.jar web.jar
+ADD build/libs/politicaaberta-0.0.1-SNAPSHOT.jar web.jar
 
 RUN bash -c 'touch /web.jar'
 
