@@ -31,15 +31,15 @@ public class DateShortcuts {
     }
 
     public static int yearFromLastMonth() {
-        return localDateOfTwoMonthsAgo().getYear();
+        return localDateOfLastMonthStart().getYear();
     }
 
     public static int yearFromTwoMonthsAgo() {
-        return localDateOfThreeMonthsAgo().getYear();
+        return localDateOfTwoMonthsAgo().getYear();
     }
 
     public static int yearFromThreeMonthsAgo() {
-        return localDateOfLastMonthStart().getYear();
+        return localDateOfThreeMonthsAgo().getYear();
     }
 
 }
