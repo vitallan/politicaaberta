@@ -41,7 +41,7 @@ public class JobService {
         this.propositionBatch = propositionBatch;
     }
 
-    @Scheduled(cron = "0 0 12 1 * *") //at midnight on the first day of each month
+    @Scheduled(cron = "0 0 1 1 * ?") //at midnight on the first day of each month
     public void queueDeputyBatch() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         log.debug("Enfileirando batch de deputados...");
         this.jobs.add(this.buildSimpleJobExecutionRequest(deputyBatch));
