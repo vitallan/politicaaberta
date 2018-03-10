@@ -12,5 +12,5 @@ ADD build/libs/politicaaberta-0.0.1-SNAPSHOT.jar web.jar
 
 RUN bash -c 'touch /web.jar'
 
-ENTRYPOINT ["java","-Xms64M","-Xmx64M","-jar","/web.jar"]
+ENTRYPOINT ["java","-Xms128M","-Xmx128M","-jar","/web.jar"]
 
